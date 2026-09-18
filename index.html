@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyTrack - Student Assignment Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Include Google Font for a modern clean appearance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="logo-icon">📚</span>
+        <h1>StudyTrack</h1>
+      </div>
+      <p class="subtitle">Keep track of assignments, deadlines, and academic progress</p>
+    </div>
+  </header>
+
+  <main class="app-content">
+    <div class="content-container">
+      
+      <!-- Left Column: Add Assignment Form -->
+      <aside class="sidebar">
+        <section class="card form-section">
+          <h2>New Assignment</h2>
+          <form id="add-assignment-form" novalidate>
+            <div class="form-group">
+              <label for="assignment-name">Assignment Name <span class="required">*</span></label>
+              <input type="text" id="assignment-name" required placeholder="e.g. Database Design Paper">
+              <span class="error-msg" id="name-error"></span>
+            </div>
+            
+            <div class="form-group">
+              <label for="assignment-course">Course <span class="required">*</span></label>
+              <input type="text" id="assignment-course" required placeholder="e.g. CSE 310">
+              <span class="error-msg" id="course-error"></span>
+            </div>
+            
+            <div class="form-group">
+              <label for="assignment-due-date">Due Date <span class="required">*</span></label>
+              <input type="date" id="assignment-due-date" required>
+              <span class="error-msg" id="date-error"></span>
+            </div>
+            
+            <div class="form-group">
+              <label for="assignment-desc">Description</label>
+              <textarea id="assignment-desc" rows="4" placeholder="e.g. Write a 3-page summary of the database lifecycle..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Add Assignment</button>
+          </form>
+        </section>
+
+        <!-- Sprint 3 Placeholder: Filtering & Organization -->
+        <section class="card filter-section">
+          <h2>Filter & Organize</h2>
+          <div class="placeholder-box">
+            <p>Advanced filtering and sorting features are coming in Sprint 3:</p>
+            <ul>
+              <li>🔍 Filter by Course</li>
+              <li>📊 Filter by Status</li>
+              <li>📅 Sort by Upcoming Deadlines</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right Column: Assignments List -->
+      <section class="assignments-section">
+        <div class="section-header">
+          <h2>My Assignments</h2>
+          <span class="badge" id="assignment-count">0 Assignments</span>
+        </div>
+        
+        <div id="assignments-list" class="assignments-grid">
+          <!-- Initial Welcome / No Assignments State -->
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon">📝</div>
+            <h3>No assignments found</h3>
+            <p>Add your first assignment using the form on the left to get started!</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 StudyTrack Team. All rights reserved.</p>
+      <p class="team-credits">Developed by Lifegate De-Tom & Aaron Edem &bull; CSE 499 BYU-Idaho</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
