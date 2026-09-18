@@ -1,0 +1,538 @@
+/*
+ * StudyTrack Style Sheet
+ * Author: StudyTrack Team
+ * A modern, responsive design for the assignment management application.
+ */
+
+/* Custom properties for color palette and layout defaults */
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #e0e7ff;
+  --neutral-dark: #1e293b;
+  --neutral-text: #334155;
+  --neutral-light: #f8fafc;
+  --neutral-border: #e2e8f0;
+  --white: #ffffff;
+  
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --info: #06b6d4;
+  --info-light: #ecfeff;
+  --error: #ef4444;
+  --error-bg: #fef2f2;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--neutral-light);
+  color: var(--neutral-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout Elements */
+.app-header {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  color: var(--white);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+}
+
+.app-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.app-header .subtitle {
+  font-size: 1.05rem;
+  color: #c7d2fe;
+  font-weight: 400;
+}
+
+/* Main Container */
+.app-content {
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 250px);
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* Sidebar & Cards */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--neutral-border);
+  box-shadow: var(--shadow-sm);
+  padding: 1.75rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--neutral-dark);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--neutral-light);
+}
+
+/* Forms & Inputs */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--neutral-dark);
+  margin-bottom: 0.5rem;
+}
+
+.form-group label .required {
+  color: var(--error);
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--neutral-text);
+  background-color: var(--white);
+  border: 1px solid var(--neutral-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Form Validation Styles */
+.form-group.has-error input,
+.form-group.has-error textarea {
+  border-color: var(--error);
+  background-color: var(--error-bg);
+}
+
+.error-msg {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--error);
+  margin-top: 0.35rem;
+  font-weight: 500;
+  min-height: 1.2rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* Placeholder box style */
+.placeholder-box {
+  background-color: var(--neutral-light);
+  border: 1px dashed var(--neutral-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.placeholder-box p {
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.placeholder-box ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.placeholder-box li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Assignments List Section */
+.assignments-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--neutral-border);
+  padding-bottom: 0.75rem;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-dark);
+}
+
+.badge {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(79, 70, 229, 0.15);
+}
+
+/* Assignments List (Grid or Stack) */
+.assignments-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* Assignment Card */
+.assignment-card {
+  background-color: var(--white);
+  border: 1px solid var(--neutral-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.assignment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Visual Left Accent Stripe depending on status */
+.assignment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: var(--info); /* Default info status */
+}
+
+.assignment-card.status-not-started::before {
+  background-color: var(--neutral-text);
+}
+
+.assignment-card.status-in-progress::before {
+  background-color: var(--warning);
+}
+
+.assignment-card.status-completed::before {
+  background-color: var(--success);
+}
+
+/* Card Header */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.card-title-group h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--neutral-dark);
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+
+.card-course {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--neutral-text);
+  background-color: var(--neutral-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--neutral-border);
+}
+
+/* Badges for Status */
+.status-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.status-badge.not-started {
+  background-color: var(--neutral-light);
+  color: var(--neutral-dark);
+  border: 1px solid var(--neutral-border);
+}
+
+.status-badge.in-progress {
+  background-color: var(--warning-light);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.status-badge.completed {
+  background-color: var(--success-light);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+/* Card Description */
+.card-description {
+  font-size: 0.925rem;
+  color: var(--neutral-text);
+  white-space: pre-line; /* respects line breaks */
+  word-break: break-word;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--neutral-border);
+  padding-top: 1rem;
+  margin-top: auto;
+  font-size: 0.85rem;
+}
+
+.card-due-date {
+  color: var(--neutral-text);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.card-due-date.urgent {
+  color: var(--error);
+  font-weight: 600;
+}
+
+/* Actions in Sprint 2 - basic support styled and ready */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: var(--radius-sm);
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-icon:hover {
+  background-color: var(--neutral-light);
+}
+
+.btn-icon-delete:hover {
+  color: var(--error);
+  background-color: var(--error-bg);
+}
+
+.btn-icon-edit:hover {
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+/* Empty State Styling */
+.empty-state {
+  background-color: var(--white);
+  border: 2px dashed var(--neutral-border);
+  border-radius: var(--radius-lg);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--neutral-dark);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* App Footer */
+.app-footer {
+  background-color: #0f172a;
+  color: #94a3b8;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin-top: 4rem;
+  border-top: 1px solid #1e293b;
+  font-size: 0.85rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.team-credits {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 768px) {
+  .app-header {
+    padding: 3.5rem 2rem;
+  }
+  
+  .app-header h1 {
+    font-size: 2.75rem;
+  }
+  
+  .app-content {
+    padding: 3rem 2rem;
+  }
+  
+  .content-container {
+    grid-template-columns: 350px 1fr;
+    align-items: start;
+    gap: 2.5rem;
+  }
+  
+  .assignments-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-container {
+    grid-template-columns: 380px 1fr;
+  }
+}
