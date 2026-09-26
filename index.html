@@ -8,10 +8,13 @@
 
   <link rel="stylesheet" href="css/styles.css">
 
+  <!-- FontAwesome 6 -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
   <!-- Google Font -->
-  <!-- FontAwesome 6 (Free) for modern crisp vector icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Include Google Font for a modern clean appearance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -22,24 +25,30 @@
 
 <body>
 
-  <!-- Header -->
-  <!-- Ambient Aurora Orbs for a gorgeous dark glassmorphic atmosphere -->
+  <!-- Ambient Aurora Background -->
   <div class="aurora-ambient">
     <div class="aurora-orb orb-purple"></div>
     <div class="aurora-orb orb-cyan"></div>
     <div class="aurora-orb orb-blue"></div>
   </div>
 
+
+  <!-- Header -->
   <header class="app-header">
     <div class="header-container">
+
       <div class="logo-area">
-        <span class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+        <span class="logo-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </span>
+
         <h1>StudyTrack</h1>
       </div>
 
       <p class="subtitle">
         Keep track of assignments, deadlines, and academic progress
       </p>
+
     </div>
   </header>
 
@@ -48,9 +57,11 @@
   <main class="app-content">
     <div class="content-container">
 
-      <!-- Left Column: Add Assignment Form -->
+
+      <!-- Left Column -->
       <aside class="sidebar">
 
+        <!-- Add Assignment -->
         <section class="card form-section">
           <h2>New Assignment</h2>
 
@@ -69,7 +80,10 @@
                 placeholder="e.g. Database Design Paper"
               >
 
-              <span class="error-msg" id="name-error"></span>
+              <span
+                class="error-msg"
+                id="name-error"
+              ></span>
             </div>
 
 
@@ -86,7 +100,10 @@
                 placeholder="e.g. CSE 310"
               >
 
-              <span class="error-msg" id="course-error"></span>
+              <span
+                class="error-msg"
+                id="course-error"
+              ></span>
             </div>
 
 
@@ -102,7 +119,10 @@
                 required
               >
 
-              <span class="error-msg" id="date-error"></span>
+              <span
+                class="error-msg"
+                id="date-error"
+              ></span>
             </div>
 
 
@@ -120,37 +140,56 @@
             </div>
 
 
-            <!-- Add Assignment Button -->
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              Add Assignment
-            </button>
-
-            
+            <!-- Form Actions -->
             <div class="form-actions">
-              <button type="submit" class="btn btn-primary">Add Assignment</button>
-              <button type="reset" class="btn btn-secondary">Clear / Cancel</button>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Add Assignment
+              </button>
+
+              <button
+                type="reset"
+                class="btn btn-secondary"
+              >
+                Clear / Cancel
+              </button>
+
             </div>
+
           </form>
         </section>
 
 
-        <!-- Sprint 3 Placeholder: Filtering & Organization -->
+        <!-- Filter & Organize -->
         <section class="card filter-section">
           <h2>Filter & Organize</h2>
 
           <div class="placeholder-box">
+
             <p>
               Advanced filtering and sorting features are coming in Sprint 3:
             </p>
 
             <ul>
-              <li><i class="fa-solid fa-magnifying-glass"></i> Filter by Course</li>
-              <li><i class="fa-solid fa-chart-simple"></i> Filter by Status</li>
-              <li><i class="fa-regular fa-calendar-days"></i> Sort by Upcoming Deadlines</li>
+              <li>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Filter by Course
+              </li>
+
+              <li>
+                <i class="fa-solid fa-chart-simple"></i>
+                Filter by Status
+              </li>
+
+              <li>
+                <i class="fa-regular fa-calendar-days"></i>
+                Sort by Upcoming Deadlines
+              </li>
             </ul>
+
           </div>
         </section>
 
@@ -160,7 +199,9 @@
       <!-- Right Column: Assignments List -->
       <section class="assignments-section">
 
+        <!-- Section Header -->
         <div class="section-header">
+
           <h2>My Assignments</h2>
 
           <span
@@ -169,6 +210,7 @@
           >
             0 Assignments
           </span>
+
         </div>
 
 
@@ -178,21 +220,23 @@
           class="assignments-grid"
         >
 
-          <!-- Initial Welcome / No Assignments State -->
+          <!-- Empty State -->
           <div
             class="empty-state"
             id="empty-state"
           >
-            <div class="empty-icon">📝</div>
 
-          <div class="empty-state" id="empty-state">
-            <div class="empty-icon"><i class="fa-regular fa-clipboard"></i></div>
+            <div class="empty-icon">
+              <i class="fa-regular fa-clipboard"></i>
+            </div>
+
             <h3>No assignments found</h3>
 
             <p>
               Add your first assignment using the form on the left
               to get started!
             </p>
+
           </div>
 
         </div>
@@ -214,6 +258,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
+
         <h2>Edit Assignment</h2>
 
         <button
@@ -224,6 +269,7 @@
         >
           &times;
         </button>
+
       </div>
 
 
@@ -235,6 +281,7 @@
 
         <!-- Assignment Name -->
         <div class="form-group">
+
           <label for="edit-assignment-name">
             Assignment Name <span class="required">*</span>
           </label>
@@ -249,11 +296,13 @@
             class="error-msg"
             id="edit-name-error"
           ></span>
+
         </div>
 
 
         <!-- Course -->
         <div class="form-group">
+
           <label for="edit-assignment-course">
             Course <span class="required">*</span>
           </label>
@@ -268,11 +317,13 @@
             class="error-msg"
             id="edit-course-error"
           ></span>
+
         </div>
 
 
         <!-- Due Date -->
         <div class="form-group">
+
           <label for="edit-assignment-due-date">
             Due Date <span class="required">*</span>
           </label>
@@ -287,11 +338,13 @@
             class="error-msg"
             id="edit-date-error"
           ></span>
+
         </div>
 
 
         <!-- Description -->
         <div class="form-group">
+
           <label for="edit-assignment-desc">
             Description
           </label>
@@ -300,6 +353,7 @@
             id="edit-assignment-desc"
             rows="4"
           ></textarea>
+
         </div>
 
 
@@ -326,6 +380,7 @@
       </form>
 
     </div>
+
   </div>
 
 
@@ -338,7 +393,7 @@
       </p>
 
       <p class="team-credits">
-        Developed by Lifegate De-Tom & Aaron Edem
+        Developed by Lifegate De-Tom &amp; Aaron Edem
         &bull;
         CSE 499 BYU-Idaho
       </p>

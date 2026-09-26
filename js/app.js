@@ -1,6 +1,7 @@
 /**
  * Main Application Orchestrator for StudyTrack
- * Handles UI events, form validation, and rendering.
+ * Handles UI events, form validation, assignment status,
+ * editing, deletion, and rendering.
  */
 
 import { loadAssignments, saveAssignments } from './storage.js';
@@ -8,17 +9,14 @@ import { loadAssignments, saveAssignments } from './storage.js';
 // --- State Management ---
 let assignments = [];
 let editingAssignmentId = null;
-let editingId = null;
 
 // --- DOM Elements ---
 const addForm = document.getElementById('add-assignment-form');
-const submitBtn = addForm ? addForm.querySelector('button[type="submit"]') : null;
 const assignmentsList = document.getElementById('assignments-list');
 const emptyState = document.getElementById('empty-state');
 const countBadge = document.getElementById('assignment-count');
-const formTitle = document.querySelector('.form-section h2');
 
-// Form Inputs
+// Add Assignment Form Inputs
 const nameInput = document.getElementById('assignment-name');
 const courseInput = document.getElementById('assignment-course');
 const dateInput = document.getElementById('assignment-due-date');
@@ -41,7 +39,7 @@ function init() {
   assignments = loadAssignments();
 
   if (addForm) {
-    addForm.addEventListener('submit', handleFormSubmit);
+    addForm.addEventListener('submit', handleAddFormSubmit);
   }
 
   if (editForm) {
@@ -54,39 +52,23 @@ function init() {
 
   if (cancelEdit) {
     cancelEdit.addEventListener('click', closeEditAssignmentModal);
-    addForm.addEventListener('reset', () => {
-      editingId = null;
-      if (submitBtn) submitBtn.textContent = 'Add Assignment';
-      if (formTitle) formTitle.textContent = 'New Assignment';
-      clearErrors();
-    });
   }
 
   render();
 }
 
 /**
- * Handles form submission for adding or editing an assignment.
- * Handles the submission of the assignment form (Add or Update).
+ * Handles submission of the Add Assignment form.
  */
-function handleFormSubmit(event) {
+function handleAddFormSubmit(event) {
   event.preventDefault();
 
   if (!validateForm()) return;
 
-  if (editingAssignmentId) {
-    handleUpdateAssignment();
-  } else {
-    handleAddAssignment();
-  }
-}
-
-/**
- * Handles the submission of the "Add Assignment" form.
- */
-function handleAddAssignment() {
   const newAssignment = {
-    id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+    id: crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now().toString(),
     name: nameInput.value.trim(),
     course: courseInput.value.trim(),
     dueDate: dateInput.value,
@@ -95,40 +77,11 @@ function handleAddAssignment() {
     createdAt: new Date().toISOString()
   };
 
-  assignments.push(newAssignment);
+  const updatedAssignments = [...assignments, newAssignment];
 
-  if (saveAssignments(assignments)) {
+  if (saveAssignments(updatedAssignments)) {
+    assignments = updatedAssignments;
     resetForm();
-  if (editingId) {
-    // Update existing assignment
-    const index = assignments.findIndex(a => a.id === editingId);
-    if (index !== -1) {
-      assignments[index] = {
-        ...assignments[index],
-        name: nameInput.value.trim(),
-        course: courseInput.value.trim(),
-        dueDate: dateInput.value,
-        description: descInput.value.trim(),
-        updatedAt: new Date().toISOString()
-      };
-    }
-    editingId = null;
-  } else {
-    // Create new assignment
-    const newAssignment = {
-      id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
-      name: nameInput.value.trim(),
-      course: courseInput.value.trim(),
-      dueDate: dateInput.value,
-      description: descInput.value.trim(),
-      status: 'Not Started',
-      createdAt: new Date().toISOString()
-    };
-    assignments.push(newAssignment);
-  }
-  
-  if (saveAssignments(assignments)) {
-    addForm.reset();
     render();
   }
 }
@@ -137,12 +90,23 @@ function handleAddAssignment() {
  * Handles status changes for an assignment.
  */
 function handleStatusChange(id, newStatus) {
-  const index = assignments.findIndex(a => a.id === id);
-  if (index !== -1) {
-    assignments[index].status = newStatus;
-    if (saveAssignments(assignments)) {
-      render();
-    }
+  const assignmentIndex = assignments.findIndex(
+    assignment => assignment.id === id
+  );
+
+  if (assignmentIndex === -1) return;
+
+  const updatedAssignments = [...assignments];
+
+  updatedAssignments[assignmentIndex] = {
+    ...updatedAssignments[assignmentIndex],
+    status: newStatus,
+    updatedAt: new Date().toISOString()
+  };
+
+  if (saveAssignments(updatedAssignments)) {
+    assignments = updatedAssignments;
+    render();
   }
 }
 
@@ -161,7 +125,7 @@ function handleDeleteAssignment(id) {
 }
 
 /**
- * Opens the edit modal and loads the selected assignment.
+ * Opens the Edit Assignment modal and loads the selected assignment.
  */
 function handleEditAssignment(id) {
   const assignment = assignments.find(
@@ -185,7 +149,7 @@ function handleEditAssignment(id) {
 }
 
 /**
- * Handles submission of the edit assignment form.
+ * Handles submission of the Edit Assignment modal form.
  */
 function handleEditFormSubmit(event) {
   event.preventDefault();
@@ -196,7 +160,7 @@ function handleEditFormSubmit(event) {
 }
 
 /**
- * Updates an existing assignment.
+ * Updates the selected assignment.
  */
 function handleUpdateAssignment() {
   const assignmentIndex = assignments.findIndex(
@@ -210,10 +174,12 @@ function handleUpdateAssignment() {
     name: editNameInput.value.trim(),
     course: editCourseInput.value.trim(),
     dueDate: editDateInput.value,
-    description: editDescInput.value.trim()
+    description: editDescInput.value.trim(),
+    updatedAt: new Date().toISOString()
   };
 
   const updatedAssignments = [...assignments];
+
   updatedAssignments[assignmentIndex] = updatedAssignment;
 
   if (saveAssignments(updatedAssignments)) {
@@ -224,7 +190,45 @@ function handleUpdateAssignment() {
 }
 
 /**
- * Validates the edit assignment form.
+ * Validates the Add Assignment form.
+ */
+function validateForm() {
+  let isValid = true;
+
+  clearErrors();
+
+  if (!nameInput.value.trim()) {
+    showError(
+      nameInput,
+      'name-error',
+      'Assignment name is required'
+    );
+    isValid = false;
+  }
+
+  if (!courseInput.value.trim()) {
+    showError(
+      courseInput,
+      'course-error',
+      'Course name is required'
+    );
+    isValid = false;
+  }
+
+  if (!dateInput.value) {
+    showError(
+      dateInput,
+      'date-error',
+      'Please select a due date'
+    );
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+/**
+ * Validates the Edit Assignment modal form.
  */
 function validateEditForm() {
   let isValid = true;
@@ -262,7 +266,45 @@ function validateEditForm() {
 }
 
 /**
- * Displays an error message in the edit form.
+ * Displays an error message for the Add Assignment form.
+ */
+function showError(inputElement, errorId, message) {
+  const errorSpan = document.getElementById(errorId);
+
+  if (errorSpan) {
+    errorSpan.textContent = message;
+  }
+
+  const group = inputElement.closest('.form-group');
+
+  if (group) {
+    group.classList.add('has-error');
+  }
+}
+
+/**
+ * Clears all Add Assignment form errors.
+ */
+function clearErrors() {
+  const errorSpans = document.querySelectorAll(
+    '#add-assignment-form .error-msg'
+  );
+
+  errorSpans.forEach(span => {
+    span.textContent = '';
+  });
+
+  const groups = document.querySelectorAll(
+    '#add-assignment-form .form-group'
+  );
+
+  groups.forEach(group => {
+    group.classList.remove('has-error');
+  });
+}
+
+/**
+ * Displays an error message for the Edit Assignment form.
  */
 function showEditError(inputElement, errorId, message) {
   const errorSpan = document.getElementById(errorId);
@@ -279,7 +321,7 @@ function showEditError(inputElement, errorId, message) {
 }
 
 /**
- * Clears all edit form errors.
+ * Clears all Edit Assignment form errors.
  */
 function clearEditErrors() {
   const errorSpans = document.querySelectorAll(
@@ -300,7 +342,18 @@ function clearEditErrors() {
 }
 
 /**
- * Closes the edit assignment modal.
+ * Resets the Add Assignment form.
+ */
+function resetForm() {
+  if (addForm) {
+    addForm.reset();
+  }
+
+  clearErrors();
+}
+
+/**
+ * Closes the Edit Assignment modal.
  */
 function closeEditAssignmentModal() {
   if (editModal) {
@@ -316,115 +369,13 @@ function closeEditAssignmentModal() {
 }
 
 /**
- * Resets the assignment form and editing state.
- */
-function resetForm() {
-  addForm.reset();
-  editingAssignmentId = null;
-  clearErrors();
-}
-
-  if (confirm('Are you sure you want to delete this assignment?')) {
-    assignments = assignments.filter(a => a.id !== id);
-    if (saveAssignments(assignments)) {
-      if (editingId === id) {
-        addForm.reset();
-      }
-      render();
-    }
-  }
-}
-
-/**
- * Handles editing of an assignment.
- */
-function handleEditAssignment(id) {
-  const assignment = assignments.find(a => a.id === id);
-  if (assignment) {
-    editingId = id;
-    
-    // Populate form
-    nameInput.value = assignment.name;
-    courseInput.value = assignment.course;
-    dateInput.value = assignment.dueDate;
-    descInput.value = assignment.description;
-    
-    // Update UI
-    if (submitBtn) submitBtn.textContent = 'Update Assignment';
-    if (formTitle) formTitle.textContent = 'Edit Assignment';
-    
-    // Scroll to form
-    addForm.scrollIntoView({ behavior: 'smooth' });
-    nameInput.focus();
-  }
-}
-
-/**
- * Validates the form fields.
- */
-function validateForm() {
-  let isValid = true;
-  clearErrors();
-
-  if (!nameInput.value.trim()) {
-    showError(nameInput, 'name-error', 'Assignment name is required');
-    isValid = false;
-  }
-
-  if (!courseInput.value.trim()) {
-    showError(courseInput, 'course-error', 'Course name is required');
-    isValid = false;
-  }
-
-  if (!dateInput.value) {
-    showError(dateInput, 'date-error', 'Please select a due date');
-    isValid = false;
-  }
-
-  return isValid;
-}
-
-/**
- * Displays an error message for a specific field.
- */
-function showError(inputElement, errorId, message) {
-  const errorSpan = document.getElementById(errorId);
-
-  if (errorSpan) {
-    errorSpan.textContent = message;
-  }
-
-  const group = inputElement.closest('.form-group');
-
-  if (group) {
-    group.classList.add('has-error');
-  }
-}
-
-/**
- * Clears all form errors.
- */
-function clearErrors() {
-  const errorSpans = document.querySelectorAll('.error-msg');
-
-  errorSpans.forEach(span => {
-    span.textContent = '';
-  });
-
-  const groups = document.querySelectorAll('.form-group');
-
-  groups.forEach(group => {
-    group.classList.remove('has-error');
-  });
-}
-
-/**
- * Renders the assignment list and updates UI state.
+ * Renders the assignment list and updates the UI.
  */
 function render() {
-  // Update count badge
+  // Update assignment count
   if (countBadge) {
-    countBadge.textContent = `${assignments.length} Assignment${assignments.length !== 1 ? 's' : ''}`;
+    countBadge.textContent =
+      `${assignments.length} Assignment${assignments.length !== 1 ? 's' : ''}`;
   }
 
   // Handle empty state
@@ -448,9 +399,10 @@ function render() {
   if (assignmentsList) {
     assignmentsList.innerHTML = '';
 
-    // Sort assignments by date (soonest first)
+    // Sort assignments by due date
     const sorted = [...assignments].sort(
-      (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
+      (a, b) =>
+        new Date(a.dueDate) - new Date(b.dueDate)
     );
 
     sorted.forEach(assignment => {
@@ -466,68 +418,103 @@ function render() {
 function createAssignmentCard(assignment) {
   const div = document.createElement('div');
 
-  div.className = `assignment-card status-${assignment.status
-    .toLowerCase()
-    .replace(' ', '-')}`;
-
   const statusClass = assignment.status
     .toLowerCase()
-    .replace(' ', '-');
+    .replace(/\s+/g, '-');
 
-  const statusClass = assignment.status.toLowerCase().replace(' ', '-');
   div.className = `assignment-card status-${statusClass}`;
-  
+
   div.innerHTML = `
     <div class="card-top">
       <div class="card-title-group">
         <h3>${escapeHtml(assignment.name)}</h3>
-        <span class="card-course">${escapeHtml(assignment.course)}</span>
+        <span class="card-course">
+          ${escapeHtml(assignment.course)}
+        </span>
       </div>
+
       <div class="status-container">
-        <select class="status-badge ${statusClass}" aria-label="Change status">
-          <option value="Not Started" ${assignment.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
-          <option value="In Progress" ${assignment.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-          <option value="Completed" ${assignment.status === 'Completed' ? 'selected' : ''}>Completed</option>
+        <select
+          class="status-badge ${statusClass}"
+          aria-label="Change assignment status"
+        >
+          <option
+            value="Not Started"
+            ${assignment.status === 'Not Started' ? 'selected' : ''}
+          >
+            Not Started
+          </option>
+
+          <option
+            value="In Progress"
+            ${assignment.status === 'In Progress' ? 'selected' : ''}
+          >
+            In Progress
+          </option>
+
+          <option
+            value="Completed"
+            ${assignment.status === 'Completed' ? 'selected' : ''}
+          >
+            Completed
+          </option>
         </select>
       </div>
     </div>
 
     ${
       assignment.description
-        ? `<p class="card-description">${escapeHtml(assignment.description)}</p>`
+        ? `
+          <p class="card-description">
+            ${escapeHtml(assignment.description)}
+          </p>
+        `
         : ''
     }
 
     <div class="card-footer">
-      <div class="card-due-date ${isUrgent(assignment.dueDate) ? 'urgent' : ''}">
-        <i class="fa-regular fa-calendar-days"></i> Due: ${formatDate(assignment.dueDate)}
+      <div
+        class="card-due-date ${
+          isUrgent(assignment.dueDate) ? 'urgent' : ''
+        }"
+      >
+        <i class="fa-regular fa-calendar-days"></i>
+        Due: ${formatDate(assignment.dueDate)}
       </div>
 
       <div class="card-actions">
         <button
           class="btn-icon btn-icon-edit"
-          title="Edit (Sprint 2)"
+          title="Edit Assignment"
           data-id="${assignment.id}"
         >
-          ✏️
+          <i class="fa-solid fa-pen-to-square"></i>
         </button>
 
         <button
           class="btn-icon btn-icon-delete"
-          title="Delete (Sprint 2)"
+          title="Delete Assignment"
           data-id="${assignment.id}"
         >
-          🗑️
-        <button class="btn-icon btn-icon-edit" title="Edit Assignment">
-          <i class="fa-solid fa-pen-to-square"></i>
-        </button>
-        <button class="btn-icon btn-icon-delete" title="Delete Assignment">
           <i class="fa-solid fa-trash-can"></i>
         </button>
       </div>
     </div>
   `;
 
+  // Status change
+  const statusSelect = div.querySelector('.status-badge');
+
+  if (statusSelect) {
+    statusSelect.addEventListener('change', event => {
+      handleStatusChange(
+        assignment.id,
+        event.target.value
+      );
+    });
+  }
+
+  // Edit button
   const editButton = div.querySelector('.btn-icon-edit');
 
   if (editButton) {
@@ -536,25 +523,11 @@ function createAssignmentCard(assignment) {
     });
   }
 
+  // Delete button
   const deleteButton = div.querySelector('.btn-icon-delete');
-  // Attach event listeners
-  const statusSelect = div.querySelector('select');
-  if (statusSelect) {
-    statusSelect.addEventListener('change', (e) => {
-      handleStatusChange(assignment.id, e.target.value);
-    });
-  }
 
-  const editBtn = div.querySelector('.btn-icon-edit');
-  if (editBtn) {
-    editBtn.addEventListener('click', () => {
-      handleEditAssignment(assignment.id);
-    });
-  }
-
-  const deleteBtn = div.querySelector('.btn-icon-delete');
-  if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
+  if (deleteButton) {
+    deleteButton.addEventListener('click', () => {
       handleDeleteAssignment(assignment.id);
     });
   }
@@ -563,7 +536,7 @@ function createAssignmentCard(assignment) {
 }
 
 /**
- * Helper: Formats ISO date string to a more readable format.
+ * Formats an ISO date string into a readable date.
  */
 function formatDate(dateString) {
   const options = {
@@ -573,18 +546,23 @@ function formatDate(dateString) {
     year: 'numeric'
   };
 
-  // Use T00:00:00 to avoid timezone shifts on the date
-  return new Date(dateString + 'T00:00:00').toLocaleDateString(
+  // Use T00:00:00 to avoid timezone shifts.
+  return new Date(
+    dateString + 'T00:00:00'
+  ).toLocaleDateString(
     undefined,
     options
   );
 }
 
 /**
- * Helper: Checks if a date is within the next 48 hours.
+ * Checks if a date is within the next 48 hours.
  */
 function isUrgent(dateString) {
-  const dueDate = new Date(dateString + 'T00:00:00');
+  const dueDate = new Date(
+    dateString + 'T00:00:00'
+  );
+
   const now = new Date();
   const diff = dueDate - now;
   const fortyEightHours = 48 * 60 * 60 * 1000;
@@ -593,21 +571,7 @@ function isUrgent(dateString) {
 }
 
 /**
- * Helper: Returns an emoji based on status.
- */
-function getStatusIcon(status) {
-  switch (status) {
-    case 'Completed':
-      return '✅';
-    case 'In Progress':
-      return '⏳';
-    default:
-      return '⚪';
-  }
-}
-
-/**
- * Helper: Escapes HTML to prevent XSS.
+ * Escapes HTML to prevent XSS.
  */
 function escapeHtml(text) {
   const div = document.createElement('div');
@@ -615,5 +579,5 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// Start the app
+// Start the application.
 init();
