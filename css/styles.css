@@ -15,25 +15,25 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-border-hover: rgba(255, 255, 255, 0.18);
   
-  --primary: #8b5cf6;       /* Electric Violet */
+  --primary: #8b5cf6;
   --primary-hover: #7c3aed;
   --primary-glow: rgba(139, 92, 246, 0.35);
   
-  --secondary: #06b6d4;     /* Neon Cyan */
+  --secondary: #06b6d4;
   --secondary-hover: #0891b2;
   --secondary-glow: rgba(6, 182, 212, 0.35);
   
   --white: #ffffff;
-  --text-primary: #f8fafc;  /* Crisp Off-White */
-  --text-secondary: #94a3b8;/* Cool Slate Grey */
-  --text-muted: #64748b;    /* Dark Slate */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   
-  /* Status Glowing Colors */
-  --success: #10b981;       /* Glowing Emerald */
+  /* Status glowing colors */
+  --success: #10b981;
   --success-glow: rgba(16, 185, 129, 0.25);
-  --warning: #f59e0b;       /* Glowing Amber */
+  --warning: #f59e0b;
   --warning-glow: rgba(245, 158, 11, 0.25);
-  --error: #f43f5e;         /* Glowing Rose */
+  --error: #f43f5e;
   --error-bg: rgba(244, 63, 94, 0.12);
   --error-glow: rgba(244, 63, 94, 0.3);
   
@@ -53,7 +53,8 @@
   --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Reset & Base Styles */
+/* Reset and base styles */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -72,22 +73,27 @@ body {
   overflow-x: hidden;
 }
 
-/* Scrollbar styling for premium feel */
+/* Scrollbar styling */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-darker);
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
 
-/* Ambient Aurora Background */
+/* Ambient aurora background */
+
 .aurora-ambient {
   position: fixed;
   top: 0;
@@ -140,7 +146,8 @@ body {
   animation: float-slow 30s infinite alternate ease-in-out;
 }
 
-/* Floating Animations */
+/* Floating animations */
+
 @keyframes float-slow {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(50px, 40px) scale(1.1); }
@@ -153,7 +160,8 @@ body {
   100% { transform: translate(40px, -20px) scale(0.9); }
 }
 
-/* App Header Styling (Sleek Glassmorphic Navbar) */
+/* App header */
+
 .app-header {
   background: rgba(13, 17, 34, 0.4);
   backdrop-filter: blur(12px);
@@ -204,7 +212,8 @@ body {
   text-align: center;
 }
 
-/* Main Layout & Content Container */
+/* Main layout */
+
 .app-content {
   padding: 2rem 1rem;
   min-height: calc(100vh - 200px);
@@ -218,7 +227,8 @@ body {
   gap: 2rem;
 }
 
-/* Sidebar & Cards (Glassmorphism Core) */
+/* Sidebar and cards */
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -264,7 +274,8 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* Forms & High-fidelity Inputs */
+/* Forms and inputs */
+
 .form-group {
   margin-bottom: 1.25rem;
   position: relative;
@@ -298,7 +309,8 @@ textarea {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
 }
 
-/* Customize date input icon to fit dark theme */
+/* Date input icon */
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   opacity: 0.6;
@@ -319,7 +331,8 @@ textarea:focus {
   box-shadow: 0 0 15px rgba(139, 92, 246, 0.2), inset 0 0 5px rgba(139, 92, 246, 0.1);
 }
 
-/* Form Validation Styles */
+/* Form validation */
+
 .form-group.has-error input,
 .form-group.has-error textarea {
   border-color: var(--error);
@@ -336,7 +349,8 @@ textarea:focus {
   letter-spacing: 0.01em;
 }
 
-/* Premium Shimmer Buttons */
+/* Buttons */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -405,7 +419,8 @@ textarea:focus {
   gap: 1rem;
 }
 
-/* Placeholder box style */
+/* Placeholder box */
+
 .placeholder-box {
   background: rgba(255, 255, 255, 0.02);
   border: 1px dashed rgba(255, 255, 255, 0.12);
@@ -434,7 +449,8 @@ textarea:focus {
   font-size: 0.85rem;
 }
 
-/* Assignments List Section */
+/* Assignments section */
+
 .assignments-section {
   display: flex;
   flex-direction: column;
@@ -470,14 +486,16 @@ textarea:focus {
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.05);
 }
 
-/* Assignments Grid */
+/* Assignments grid */
+
 .assignments-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
 }
 
-/* Glassmorphic Assignment Card */
+/* Assignment card */
+
 .assignment-card {
   background: rgba(15, 20, 39, 0.4);
   backdrop-filter: blur(12px);
@@ -501,7 +519,8 @@ textarea:focus {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.08);
 }
 
-/* Visual Left Accent Stripe (Glowing Neon Lines) */
+/* Status accent on the left side of the card */
+
 .assignment-card::before {
   content: '';
   position: absolute;
@@ -515,8 +534,8 @@ textarea:focus {
 }
 
 .assignment-card.status-not-started::before {
-  background-color: #94a3b8;
-  box-shadow: 2px 0 8px rgba(148, 163, 184, 0.25);
+  background-color: var(--error);
+  box-shadow: 2px 0 8px var(--error-glow);
 }
 
 .assignment-card.status-in-progress::before {
@@ -533,7 +552,8 @@ textarea:focus {
   width: 6px;
 }
 
-/* Card Top Row */
+/* Card top row */
+
 .card-top {
   display: flex;
   justify-content: space-between;
@@ -569,68 +589,75 @@ textarea:focus {
   border: 1px solid rgba(139, 92, 246, 0.2);
 }
 
-/* Badges for Status */
+/* Status dropdown */
+
+.status-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .status-badge {
+  font-family: inherit;
   font-size: 0.725rem;
   font-weight: 700;
-  padding: 0.25rem 0.65rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 9999px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
   white-space: nowrap;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: none;
+  appearance: auto;
+  -webkit-appearance: auto;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .status-badge.not-started {
-  background-color: rgba(148, 163, 184, 0.1);
-  color: #cbd5e1;
-  border-color: rgba(148, 163, 184, 0.2);
+  background-color: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.35);
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.08);
 }
 
 .status-badge.in-progress {
-  background-color: rgba(245, 158, 11, 0.1);
+  background-color: rgba(245, 158, 11, 0.15);
   color: #fcd34d;
-  border-color: rgba(245, 158, 11, 0.2);
-  text-shadow: 0 0 6px rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.08);
 }
 
 .status-badge.completed {
-  background-color: rgba(16, 185, 129, 0.1);
+  background-color: rgba(16, 185, 129, 0.15);
   color: #6ee7b7;
-  border-color: rgba(16, 185, 129, 0.2);
-  text-shadow: 0 0 6px rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.08);
 }
 
-/* Interactive Status Select */
-select.status-badge {
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  font-family: inherit;
-  outline: none;
-  padding-right: 1.5rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  background-size: 0.75rem;
-}
-
-select.status-badge:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+.status-badge:hover {
   border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
 }
 
-select.status-badge option {
+.status-badge:focus {
+  box-shadow:
+    0 0 0 2px rgba(139, 92, 246, 0.25),
+    0 0 12px rgba(139, 92, 246, 0.15);
+}
+
+.status-badge option {
   background-color: #0f1427;
-  color: white;
-  padding: 10px;
+  color: #ffffff;
+  font-weight: 600;
 }
 
-/* Card Description */
+/* Card description */
+
 .card-description {
   font-size: 0.9rem;
   color: var(--text-secondary);
@@ -638,7 +665,8 @@ select.status-badge option {
   word-break: break-word;
 }
 
-/* Card Footer */
+/* Card footer */
+
 .card-footer {
   display: flex;
   justify-content: space-between;
@@ -657,7 +685,8 @@ select.status-badge option {
   font-weight: 500;
 }
 
-/* Neon pulsing alert for urgent assignments (due within 48h) */
+/* Urgent assignment styling */
+
 .card-due-date.urgent {
   color: #ff809b;
   font-weight: 600;
@@ -670,7 +699,8 @@ select.status-badge option {
   50% { opacity: 0.7; transform: scale(1.01); }
 }
 
-/* Action Buttons styled like tiny glass chips */
+/* Card action buttons */
+
 .card-actions {
   display: flex;
   gap: 0.5rem;
@@ -709,7 +739,8 @@ select.status-badge option {
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.1);
 }
 
-/* Holographic Empty State Styling */
+/* Empty state */
+
 .empty-state {
   background: rgba(15, 20, 39, 0.3);
   border: 1px dashed rgba(255, 255, 255, 0.12);
@@ -762,7 +793,8 @@ select.status-badge option {
   50% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.7)); }
 }
 
-/* Premium Footer */
+/* Footer */
+
 .app-footer {
   background: rgba(4, 5, 11, 0.85);
   backdrop-filter: blur(16px);
@@ -789,7 +821,8 @@ select.status-badge option {
   color: var(--text-muted);
 }
 
-/* Responsive Breakpoints & Refined Layouts */
+/* Responsive layout */
+
 @media (min-width: 768px) {
   .app-header {
     padding: 1.5rem 2.5rem;
@@ -838,9 +871,7 @@ select.status-badge option {
   }
 }
 
-/* =========================================
-   Edit Assignment Modal
-   ========================================= */
+/* Edit assignment modal */
 
 .modal {
   position: fixed;
@@ -925,7 +956,7 @@ select.status-badge option {
   background: #f5f5f5;
 }
 
-/*   Mobile Modal Adjustments */
+/* Mobile modal adjustments */
 
 @media (max-width: 600px) {
   .modal {
