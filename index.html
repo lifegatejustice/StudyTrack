@@ -5,16 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudyTrack - Student Assignment Tracker</title>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- FontAwesome 6 (Free) for modern crisp vector icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Include Google Font for a modern clean appearance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Ambient Aurora Orbs for a gorgeous dark glassmorphic atmosphere -->
+  <div class="aurora-ambient">
+    <div class="aurora-orb orb-purple"></div>
+    <div class="aurora-orb orb-cyan"></div>
+    <div class="aurora-orb orb-blue"></div>
+  </div>
+
   <header class="app-header">
     <div class="header-container">
       <div class="logo-area">
-        <span class="logo-icon">📚</span>
+        <span class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></span>
         <h1>StudyTrack</h1>
       </div>
       <p class="subtitle">Keep track of assignments, deadlines, and academic progress</p>
@@ -52,7 +61,10 @@
               <textarea id="assignment-desc" rows="4" placeholder="e.g. Write a 3-page summary of the database lifecycle..."></textarea>
             </div>
             
-            <button type="submit" class="btn btn-primary">Add Assignment</button>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Add Assignment</button>
+              <button type="reset" class="btn btn-secondary">Clear / Cancel</button>
+            </div>
           </form>
         </section>
 
@@ -62,9 +74,9 @@
           <div class="placeholder-box">
             <p>Advanced filtering and sorting features are coming in Sprint 3:</p>
             <ul>
-              <li>🔍 Filter by Course</li>
-              <li>📊 Filter by Status</li>
-              <li>📅 Sort by Upcoming Deadlines</li>
+              <li><i class="fa-solid fa-magnifying-glass"></i> Filter by Course</li>
+              <li><i class="fa-solid fa-chart-simple"></i> Filter by Status</li>
+              <li><i class="fa-regular fa-calendar-days"></i> Sort by Upcoming Deadlines</li>
             </ul>
           </div>
         </section>
@@ -80,7 +92,7 @@
         <div id="assignments-list" class="assignments-grid">
           <!-- Initial Welcome / No Assignments State -->
           <div class="empty-state" id="empty-state">
-            <div class="empty-icon">📝</div>
+            <div class="empty-icon"><i class="fa-regular fa-clipboard"></i></div>
             <h3>No assignments found</h3>
             <p>Add your first assignment using the form on the left to get started!</p>
           </div>
