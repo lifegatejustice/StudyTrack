@@ -62,7 +62,16 @@ function handleAddAssignment(event) {
     render();
   }
 }
+/**
+ * Deletes an assignment by ID.
+ */
+function handleDeleteAssignment(id) {
+  assignments = assignments.filter(assignment => assignment.id !== id);
 
+  if (saveAssignments(assignments)) {
+    render();
+  }
+}
 /**
  * Validates the form fields.
  */
@@ -181,12 +190,20 @@ function createAssignmentCard(assignment) {
         <button class="btn-icon btn-icon-edit" title="Edit (Sprint 2)">
           ✏️
         </button>
-        <button class="btn-icon btn-icon-delete" title="Delete (Sprint 2)">
+        <button class="btn-icon btn-icon-delete" title="Delete (Sprint 2)" data-id="${assignment.id}">
           🗑️
         </button>
       </div>
     </div>
   `;
+
+  const deleteButton = div.querySelector('.btn-icon-delete');
+
+  if (deleteButton) {
+    deleteButton.addEventListener('click', () => {
+      handleDeleteAssignment(assignment.id);
+    });
+  }
   
   return div;
 }
