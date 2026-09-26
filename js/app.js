@@ -8,12 +8,15 @@ import { loadAssignments, saveAssignments } from './storage.js';
 // --- State Management ---
 let assignments = [];
 let editingAssignmentId = null;
+let editingId = null;
 
 // --- DOM Elements ---
 const addForm = document.getElementById('add-assignment-form');
+const submitBtn = addForm ? addForm.querySelector('button[type="submit"]') : null;
 const assignmentsList = document.getElementById('assignments-list');
 const emptyState = document.getElementById('empty-state');
 const countBadge = document.getElementById('assignment-count');
+const formTitle = document.querySelector('.form-section h2');
 
 // Form Inputs
 const nameInput = document.getElementById('assignment-name');
@@ -51,6 +54,12 @@ function init() {
 
   if (cancelEdit) {
     cancelEdit.addEventListener('click', closeEditAssignmentModal);
+    addForm.addEventListener('reset', () => {
+      editingId = null;
+      if (submitBtn) submitBtn.textContent = 'Add Assignment';
+      if (formTitle) formTitle.textContent = 'New Assignment';
+      clearErrors();
+    });
   }
 
   render();
@@ -58,6 +67,7 @@ function init() {
 
 /**
  * Handles form submission for adding or editing an assignment.
+ * Handles the submission of the assignment form (Add or Update).
  */
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -89,12 +99,55 @@ function handleAddAssignment() {
 
   if (saveAssignments(assignments)) {
     resetForm();
+  if (editingId) {
+    // Update existing assignment
+    const index = assignments.findIndex(a => a.id === editingId);
+    if (index !== -1) {
+      assignments[index] = {
+        ...assignments[index],
+        name: nameInput.value.trim(),
+        course: courseInput.value.trim(),
+        dueDate: dateInput.value,
+        description: descInput.value.trim(),
+        updatedAt: new Date().toISOString()
+      };
+    }
+    editingId = null;
+  } else {
+    // Create new assignment
+    const newAssignment = {
+      id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+      name: nameInput.value.trim(),
+      course: courseInput.value.trim(),
+      dueDate: dateInput.value,
+      description: descInput.value.trim(),
+      status: 'Not Started',
+      createdAt: new Date().toISOString()
+    };
+    assignments.push(newAssignment);
+  }
+  
+  if (saveAssignments(assignments)) {
+    addForm.reset();
     render();
   }
 }
 
 /**
- * Deletes an assignment by ID.
+ * Handles status changes for an assignment.
+ */
+function handleStatusChange(id, newStatus) {
+  const index = assignments.findIndex(a => a.id === id);
+  if (index !== -1) {
+    assignments[index].status = newStatus;
+    if (saveAssignments(assignments)) {
+      render();
+    }
+  }
+}
+
+/**
+ * Handles deletion of an assignment.
  */
 function handleDeleteAssignment(id) {
   const updatedAssignments = assignments.filter(
@@ -271,6 +324,41 @@ function resetForm() {
   clearErrors();
 }
 
+  if (confirm('Are you sure you want to delete this assignment?')) {
+    assignments = assignments.filter(a => a.id !== id);
+    if (saveAssignments(assignments)) {
+      if (editingId === id) {
+        addForm.reset();
+      }
+      render();
+    }
+  }
+}
+
+/**
+ * Handles editing of an assignment.
+ */
+function handleEditAssignment(id) {
+  const assignment = assignments.find(a => a.id === id);
+  if (assignment) {
+    editingId = id;
+    
+    // Populate form
+    nameInput.value = assignment.name;
+    courseInput.value = assignment.course;
+    dateInput.value = assignment.dueDate;
+    descInput.value = assignment.description;
+    
+    // Update UI
+    if (submitBtn) submitBtn.textContent = 'Update Assignment';
+    if (formTitle) formTitle.textContent = 'Edit Assignment';
+    
+    // Scroll to form
+    addForm.scrollIntoView({ behavior: 'smooth' });
+    nameInput.focus();
+  }
+}
+
 /**
  * Validates the form fields.
  */
@@ -386,15 +474,22 @@ function createAssignmentCard(assignment) {
     .toLowerCase()
     .replace(' ', '-');
 
+  const statusClass = assignment.status.toLowerCase().replace(' ', '-');
+  div.className = `assignment-card status-${statusClass}`;
+  
   div.innerHTML = `
     <div class="card-top">
       <div class="card-title-group">
         <h3>${escapeHtml(assignment.name)}</h3>
         <span class="card-course">${escapeHtml(assignment.course)}</span>
       </div>
-      <span class="status-badge ${statusClass}">
-        ${getStatusIcon(assignment.status)} ${assignment.status}
-      </span>
+      <div class="status-container">
+        <select class="status-badge ${statusClass}" aria-label="Change status">
+          <option value="Not Started" ${assignment.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+          <option value="In Progress" ${assignment.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+          <option value="Completed" ${assignment.status === 'Completed' ? 'selected' : ''}>Completed</option>
+        </select>
+      </div>
     </div>
 
     ${
@@ -405,7 +500,7 @@ function createAssignmentCard(assignment) {
 
     <div class="card-footer">
       <div class="card-due-date ${isUrgent(assignment.dueDate) ? 'urgent' : ''}">
-        📅 Due: ${formatDate(assignment.dueDate)}
+        <i class="fa-regular fa-calendar-days"></i> Due: ${formatDate(assignment.dueDate)}
       </div>
 
       <div class="card-actions">
@@ -423,6 +518,11 @@ function createAssignmentCard(assignment) {
           data-id="${assignment.id}"
         >
           🗑️
+        <button class="btn-icon btn-icon-edit" title="Edit Assignment">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button class="btn-icon btn-icon-delete" title="Delete Assignment">
+          <i class="fa-solid fa-trash-can"></i>
         </button>
       </div>
     </div>
@@ -437,9 +537,24 @@ function createAssignmentCard(assignment) {
   }
 
   const deleteButton = div.querySelector('.btn-icon-delete');
+  // Attach event listeners
+  const statusSelect = div.querySelector('select');
+  if (statusSelect) {
+    statusSelect.addEventListener('change', (e) => {
+      handleStatusChange(assignment.id, e.target.value);
+    });
+  }
 
-  if (deleteButton) {
-    deleteButton.addEventListener('click', () => {
+  const editBtn = div.querySelector('.btn-icon-edit');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => {
+      handleEditAssignment(assignment.id);
+    });
+  }
+
+  const deleteBtn = div.querySelector('.btn-icon-delete');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', () => {
       handleDeleteAssignment(assignment.id);
     });
   }
