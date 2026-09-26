@@ -64,6 +64,19 @@ function handleAddAssignment(event) {
 }
 
 /**
+ * Handles status changes for an assignment.
+ */
+function handleStatusChange(id, newStatus) {
+  const index = assignments.findIndex(a => a.id === id);
+  if (index !== -1) {
+    assignments[index].status = newStatus;
+    if (saveAssignments(assignments)) {
+      render();
+    }
+  }
+}
+
+/**
  * Validates the form fields.
  */
 function validateForm() {
@@ -156,9 +169,8 @@ function render() {
  */
 function createAssignmentCard(assignment) {
   const div = document.createElement('div');
-  div.className = `assignment-card status-${assignment.status.toLowerCase().replace(' ', '-')}`;
-  
   const statusClass = assignment.status.toLowerCase().replace(' ', '-');
+  div.className = `assignment-card status-${statusClass}`;
   
   div.innerHTML = `
     <div class="card-top">
@@ -166,27 +178,39 @@ function createAssignmentCard(assignment) {
         <h3>${escapeHtml(assignment.name)}</h3>
         <span class="card-course">${escapeHtml(assignment.course)}</span>
       </div>
-      <span class="status-badge ${statusClass}">
-        ${getStatusIcon(assignment.status)} ${assignment.status}
-      </span>
+      <div class="status-container">
+        <select class="status-badge ${statusClass}" aria-label="Change status">
+          <option value="Not Started" ${assignment.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+          <option value="In Progress" ${assignment.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+          <option value="Completed" ${assignment.status === 'Completed' ? 'selected' : ''}>Completed</option>
+        </select>
+      </div>
     </div>
     
     ${assignment.description ? `<p class="card-description">${escapeHtml(assignment.description)}</p>` : ''}
     
     <div class="card-footer">
       <div class="card-due-date ${isUrgent(assignment.dueDate) ? 'urgent' : ''}">
-        📅 Due: ${formatDate(assignment.dueDate)}
+        <i class="fa-regular fa-calendar-days"></i> Due: ${formatDate(assignment.dueDate)}
       </div>
       <div class="card-actions">
         <button class="btn-icon btn-icon-edit" title="Edit (Sprint 2)">
-          ✏️
+          <i class="fa-solid fa-pen-to-square"></i>
         </button>
         <button class="btn-icon btn-icon-delete" title="Delete (Sprint 2)">
-          🗑️
+          <i class="fa-solid fa-trash-can"></i>
         </button>
       </div>
     </div>
   `;
+
+  // Attach event listener to the status select
+  const statusSelect = div.querySelector('select');
+  if (statusSelect) {
+    statusSelect.addEventListener('change', (e) => {
+      handleStatusChange(assignment.id, e.target.value);
+    });
+  }
   
   return div;
 }
@@ -209,17 +233,6 @@ function isUrgent(dateString) {
   const diff = dueDate - now;
   const fortyEightHours = 48 * 60 * 60 * 1000;
   return diff > 0 && diff < fortyEightHours;
-}
-
-/**
- * Helper: Returns an emoji based on status.
- */
-function getStatusIcon(status) {
-  switch (status) {
-    case 'Completed': return '✅';
-    case 'In Progress': return '⏳';
-    default: return '⚪';
-  }
 }
 
 /**
