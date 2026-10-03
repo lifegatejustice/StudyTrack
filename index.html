@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
 
   <title>StudyTrack - Student Assignment Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=3.3">
 
   <!-- FontAwesome 6 -->
   <link
@@ -113,11 +114,24 @@
                 Due Date <span class="required">*</span>
               </label>
 
-              <input
-                type="date"
-                id="assignment-due-date"
-                required
-              >
+              <div class="date-input-container">
+                <input
+                  type="text"
+                  id="assignment-due-date"
+                  required
+                  placeholder="Select due date..."
+                  readonly
+                >
+
+                <button
+                  type="button"
+                  class="date-picker-trigger"
+                  aria-label="Open calendar"
+                  tabindex="-1"
+                >
+                  <i class="fa-regular fa-calendar-days"></i>
+                </button>
+              </div>
 
               <span
                 class="error-msg"
@@ -167,28 +181,82 @@
         <section class="card filter-section">
           <h2>Filter & Organize</h2>
 
-          <div class="placeholder-box">
+          <div class="filter-controls">
 
-            <p>
-              Advanced filtering and sorting features are coming in Sprint 3:
-            </p>
+            <!-- Filter by Course -->
+            <div class="form-group">
+              <label for="filter-course">
+                <i class="fa-solid fa-book"></i> Filter by Course
+              </label>
 
-            <ul>
-              <li>
-                <i class="fa-solid fa-magnifying-glass"></i>
-                Filter by Course
-              </li>
+              <select
+                id="filter-course"
+                aria-label="Filter assignments by course"
+              >
+                <option value="all">All Courses</option>
+              </select>
+            </div>
 
-              <li>
-                <i class="fa-solid fa-chart-simple"></i>
-                Filter by Status
-              </li>
+            <!-- Filter by Status -->
+            <div class="form-group">
+              <label for="filter-status">
+                <i class="fa-solid fa-list-check"></i> Filter by Status
+              </label>
 
-              <li>
-                <i class="fa-regular fa-calendar-days"></i>
-                Sort by Upcoming Deadlines
-              </li>
-            </ul>
+              <select
+                id="filter-status"
+                aria-label="Filter assignments by status"
+              >
+                <option value="all">All Statuses</option>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <!-- Filter by Upcoming Deadlines -->
+            <div class="form-group">
+              <label for="filter-deadline">
+                <i class="fa-regular fa-calendar-days"></i> Deadlines
+              </label>
+
+              <select
+                id="filter-deadline"
+                aria-label="Filter assignments by deadline"
+              >
+                <option value="all">All Deadlines</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="due-soon">Due Soon (&le; 48 hrs)</option>
+                <option value="overdue">Overdue / Past Due</option>
+              </select>
+            </div>
+
+            <!-- Sort Assignments -->
+            <div class="form-group">
+              <label for="sort-by">
+                <i class="fa-solid fa-arrow-down-short-wide"></i> Sort By
+              </label>
+
+              <select
+                id="sort-by"
+                aria-label="Sort assignments"
+              >
+                <option value="due-asc">Due Date (Earliest First)</option>
+                <option value="due-desc">Due Date (Latest First)</option>
+                <option value="name-asc">Assignment Name (A-Z)</option>
+              </select>
+            </div>
+
+            <!-- Filter Actions -->
+            <div class="filter-actions">
+              <button
+                type="button"
+                id="clear-filters-btn"
+                class="btn btn-secondary btn-clear-filters"
+              >
+                <i class="fa-solid fa-rotate-left"></i> Reset Filters
+              </button>
+            </div>
 
           </div>
         </section>
@@ -259,7 +327,12 @@
       <!-- Modal Header -->
       <div class="modal-header">
 
-        <h2>Edit Assignment</h2>
+        <div class="modal-title-wrap">
+          <span class="modal-title-icon">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </span>
+          <h2>Edit Assignment</h2>
+        </div>
 
         <button
           type="button"
@@ -267,7 +340,7 @@
           class="modal-close"
           aria-label="Close edit assignment form"
         >
-          &times;
+          <i class="fa-solid fa-xmark"></i>
         </button>
 
       </div>
@@ -328,11 +401,24 @@
             Due Date <span class="required">*</span>
           </label>
 
-          <input
-            type="date"
-            id="edit-assignment-due-date"
-            required
-          >
+          <div class="date-input-container">
+            <input
+              type="text"
+              id="edit-assignment-due-date"
+              required
+              placeholder="Select due date..."
+              readonly
+            >
+
+            <button
+              type="button"
+              class="date-picker-trigger"
+              aria-label="Open calendar"
+              tabindex="-1"
+            >
+              <i class="fa-regular fa-calendar-days"></i>
+            </button>
+          </div>
 
           <span
             class="error-msg"
@@ -365,6 +451,7 @@
             id="cancel-edit"
             class="btn btn-secondary"
           >
+            <i class="fa-solid fa-xmark"></i>
             Cancel
           </button>
 
@@ -372,6 +459,7 @@
             type="submit"
             class="btn btn-primary"
           >
+            <i class="fa-solid fa-check"></i>
             Save Changes
           </button>
 
@@ -405,7 +493,7 @@
   <!-- Application JavaScript -->
   <script
     type="module"
-    src="js/app.js"
+    src="js/app.js?v=3.2"
   ></script>
 
 </body>
