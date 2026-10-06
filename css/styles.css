@@ -1,59 +1,80 @@
 /*
  * StudyTrack Style Sheet
- * Theme: Aurora Glassmorphism (Futuristic & Premium)
- * Sourced by Lifegate De-Tom & Aaron Edem
+ * Theme: Liquid Glass (Fluid Optics & Hydro-Luminescence)
+ * Sourced by Lifegate De-Tom, Aaron Edem & Benjamin Offor
  */
 
-/* Custom properties for high-end glassmorphic dark theme */
+/* Custom properties for high-end Liquid Glass dark theme */
 :root {
   color-scheme: dark;
   accent-color: #8b5cf6;
 
   /* Colors */
-  --bg-dark: #070815;
-  --bg-darker: #04050b;
+  --bg-dark: #060713;
+  --bg-darker: #030409;
   
-  --glass-bg: rgba(13, 17, 34, 0.45);
-  --glass-bg-hover: rgba(22, 28, 54, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  /* Liquid Glass Core Palette */
+  --liquid-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(20, 26, 54, 0.48) 32%, rgba(10, 13, 30, 0.68) 100%);
+  --liquid-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.13) 0%, rgba(28, 36, 74, 0.58) 35%, rgba(14, 18, 42, 0.78) 100%);
+  --liquid-border: rgba(255, 255, 255, 0.12);
+  --liquid-border-hover: rgba(255, 255, 255, 0.28);
+  --liquid-specular: rgba(255, 255, 255, 0.55);
+  --liquid-specular-soft: rgba(255, 255, 255, 0.18);
+  --liquid-well-bg: linear-gradient(180deg, rgba(7, 9, 22, 0.72) 0%, rgba(13, 17, 38, 0.52) 100%);
   
+  /* Backward-compatible aliases for glassmorphic properties */
+  --glass-bg: rgba(14, 18, 40, 0.5);
+  --glass-bg-hover: rgba(24, 32, 68, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.28);
+  
+  /* Prismatic & Luminescent Accents */
   --primary: #8b5cf6;
   --primary-hover: #7c3aed;
-  --primary-glow: rgba(139, 92, 246, 0.35);
+  --primary-glow: rgba(139, 92, 246, 0.45);
+  --primary-sheen: #a78bfa;
   
   --secondary: #06b6d4;
   --secondary-hover: #0891b2;
-  --secondary-glow: rgba(6, 182, 212, 0.35);
+  --secondary-glow: rgba(6, 182, 212, 0.45);
+  --secondary-sheen: #38bdf8;
   
   --white: #ffffff;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   
-  /* Status glowing colors */
+  /* Status Glowing Colors (Liquid Jelly Lozenges) */
   --success: #10b981;
-  --success-glow: rgba(16, 185, 129, 0.25);
+  --success-glow: rgba(16, 185, 129, 0.35);
   --warning: #f59e0b;
-  --warning-glow: rgba(245, 158, 11, 0.25);
+  --warning-glow: rgba(245, 158, 11, 0.35);
   --error: #f43f5e;
-  --error-bg: rgba(244, 63, 94, 0.12);
-  --error-glow: rgba(244, 63, 94, 0.3);
+  --error-bg: rgba(244, 63, 94, 0.14);
+  --error-glow: rgba(244, 63, 94, 0.35);
   
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Organic Fluid Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
   
-  /* Shadows */
-  --shadow-sm: 0 2px 8px -1px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 16px -4px rgba(0, 0, 0, 0.4), 0 4px 8px -4px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+  /* Fluid Optical Shadows & Specular Rims */
+  --shadow-liquid-sm: 0 4px 14px -2px rgba(0, 0, 0, 0.38), inset 0 1px 0.5px rgba(255, 255, 255, 0.35);
+  --shadow-liquid-md: 0 16px 36px -6px rgba(0, 0, 0, 0.58), 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-liquid-lg: 0 28px 56px -10px rgba(0, 0, 0, 0.75), 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.08);
+
+  --shadow-sm: var(--shadow-liquid-sm);
+  --shadow-md: var(--shadow-liquid-md);
+  --shadow-lg: var(--shadow-liquid-lg);
   
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Reset and base styles */
@@ -77,20 +98,20 @@ body {
 }
 
 /* ==========================================================================
-   Native Pseudo-Elements Customization (Aurora Glassmorphism)
+   Native Pseudo-Elements Customization (Liquid Glass Fluidics)
    ========================================================================== */
 
-/* Text selection highlight */
+/* Text selection highlight with liquid neon glow */
 ::selection {
-  background: rgba(139, 92, 246, 0.45);
+  background: rgba(139, 92, 246, 0.55);
   color: #ffffff;
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(6, 182, 212, 0.6);
 }
 
 ::-moz-selection {
-  background: rgba(139, 92, 246, 0.45);
+  background: rgba(139, 92, 246, 0.55);
   color: #ffffff;
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(6, 182, 212, 0.6);
 }
 
 /* Placeholders */
@@ -109,12 +130,12 @@ textarea:focus::placeholder {
 /* Native scrollbar (Firefox/W3C and WebKit/Blink) */
 html {
   scrollbar-width: thin;
-  scrollbar-color: rgba(139, 92, 246, 0.35) var(--bg-darker);
+  scrollbar-color: rgba(139, 92, 246, 0.4) var(--bg-darker);
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -122,15 +143,16 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.25);
-  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.45) 0%, rgba(6, 182, 212, 0.35) 100%);
+  border-radius: var(--radius-pill);
   border: 2px solid var(--bg-darker);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
   transition: background var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-  box-shadow: 0 0 10px var(--primary-glow);
+  background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+  box-shadow: 0 0 14px var(--primary-glow), inset 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 ::-webkit-scrollbar-corner {
@@ -144,19 +166,21 @@ html {
 
 /* Native dialog / fullscreen backdrop */
 ::backdrop {
-  background: rgba(4, 5, 11, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(3, 4, 9, 0.8);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
 }
 
 /* Keyboard navigation focus ring */
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
-  box-shadow: 0 0 12px var(--primary-glow);
+  box-shadow: 0 0 16px var(--primary-glow);
 }
 
-/* Ambient aurora background */
+/* ==========================================================================
+   Ambient Fluid Caustics Background (Liquid Morphing Aurora)
+   ========================================================================== */
 
 .aurora-ambient {
   position: fixed;
@@ -171,71 +195,116 @@ html {
 
 .aurora-orb {
   position: absolute;
-  border-radius: 50%;
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
   mix-blend-mode: screen;
-  filter: blur(100px);
-  will-change: transform;
+  filter: blur(110px);
+  will-change: transform, border-radius;
 }
 
 .orb-purple {
-  width: 50vw;
-  height: 50vw;
-  max-width: 600px;
-  max-height: 600px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0) 70%);
-  top: -10%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 650px;
+  max-height: 650px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.38) 0%, rgba(139, 92, 246, 0.12) 45%, rgba(139, 92, 246, 0) 72%);
+  top: -12%;
   left: -10%;
-  animation: float-slow 35s infinite alternate ease-in-out;
+  animation: liquid-morph-purple 32s infinite alternate ease-in-out;
 }
 
 .orb-cyan {
-  width: 60vw;
-  height: 60vw;
-  max-width: 700px;
-  max-height: 700px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0) 70%);
+  width: 65vw;
+  height: 65vw;
+  max-width: 750px;
+  max-height: 750px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.32) 0%, rgba(6, 182, 212, 0.1) 45%, rgba(6, 182, 212, 0) 72%);
   bottom: -15%;
   right: -10%;
-  animation: float-reverse 40s infinite alternate ease-in-out;
+  animation: liquid-morph-cyan 38s infinite alternate ease-in-out;
 }
 
 .orb-blue {
-  width: 45vw;
-  height: 45vw;
-  max-width: 500px;
-  max-height: 500px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 70%);
-  top: 40%;
-  left: 30%;
-  animation: float-slow 30s infinite alternate ease-in-out;
+  width: 50vw;
+  height: 50vw;
+  max-width: 550px;
+  max-height: 550px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.28) 0%, rgba(99, 102, 241, 0.1) 45%, rgba(59, 130, 246, 0) 70%);
+  top: 35%;
+  left: 28%;
+  animation: liquid-morph-blue 28s infinite alternate ease-in-out;
 }
 
-/* Floating animations */
+/* Organic Liquid Morphing Animations */
 
-@keyframes float-slow {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(50px, 40px) scale(1.1); }
-  100% { transform: translate(-30px, 80px) scale(0.95); }
+@keyframes liquid-morph-purple {
+  0% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    border-radius: 65% 35% 48% 52% / 32% 58% 42% 68%;
+    transform: translate(60px, 45px) rotate(60deg) scale(1.12);
+  }
+  66% {
+    border-radius: 35% 65% 55% 45% / 58% 38% 62% 42%;
+    transform: translate(-40px, 75px) rotate(120deg) scale(0.92);
+  }
+  100% {
+    border-radius: 52% 48% 35% 65% / 40% 65% 35% 60%;
+    transform: translate(30px, 20px) rotate(180deg) scale(1.05);
+  }
 }
 
-@keyframes float-reverse {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-60px, -50px) scale(1.15); }
-  100% { transform: translate(40px, -20px) scale(0.9); }
+@keyframes liquid-morph-cyan {
+  0% {
+    border-radius: 55% 45% 38% 62% / 52% 48% 52% 48%;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    border-radius: 38% 62% 60% 40% / 48% 62% 38% 52%;
+    transform: translate(-70px, -45px) rotate(-60deg) scale(1.15);
+  }
+  66% {
+    border-radius: 65% 35% 42% 58% / 35% 45% 55% 65%;
+    transform: translate(50px, -30px) rotate(70deg) scale(0.94);
+  }
+  100% {
+    border-radius: 46% 54% 50% 50% / 60% 38% 62% 40%;
+    transform: translate(-25px, 25px) rotate(-120deg) scale(1.08);
+  }
 }
 
-/* App header */
+@keyframes liquid-morph-blue {
+  0% {
+    border-radius: 48% 52% 65% 35% / 40% 60% 40% 60%;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    border-radius: 62% 38% 35% 65% / 60% 38% 62% 40%;
+    transform: translate(50px, -55px) rotate(90deg) scale(1.1);
+  }
+  100% {
+    border-radius: 38% 62% 58% 42% / 45% 55% 45% 55%;
+    transform: translate(-35px, 40px) rotate(-80deg) scale(0.96);
+  }
+}
+
+/* ==========================================================================
+   App Header (Liquid Glass Floating Canopy)
+   ========================================================================== */
 
 .app-header {
-  background: rgba(13, 17, 34, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--glass-border);
+  background: linear-gradient(180deg, rgba(14, 18, 40, 0.65) 0%, rgba(8, 11, 26, 0.8) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 1.5rem 1.5rem;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .header-container {
@@ -255,18 +324,23 @@ html {
 
 .logo-icon {
   font-size: 2rem;
-  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.4));
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
   animation: pulse-icon 4s infinite ease-in-out;
 }
 
 .app-header h1 {
-  font-size: 1.8rem;
+  font-size: 1.85rem;
   font-weight: 700;
   letter-spacing: -0.025em;
-  background: linear-gradient(135deg, #ffffff 30%, #c7d2fe 70%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #ffffff 15%, #d8b4fe 50%, #67e8f9 85%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.25);
 }
 
 .app-header .subtitle {
@@ -276,7 +350,9 @@ html {
   text-align: center;
 }
 
-/* Main layout */
+/* ==========================================================================
+   Main Layout & Liquid Glass Cards
+   ========================================================================== */
 
 .app-content {
   padding: 2rem 1rem;
@@ -299,33 +375,54 @@ html {
   gap: 1.5rem;
 }
 
+/* Liquid Glass Card Specification */
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
+  background: var(--liquid-bg);
+  backdrop-filter: blur(20px) saturate(175%);
+  -webkit-backdrop-filter: blur(20px) saturate(175%);
+  border: 1px solid var(--liquid-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-liquid-md);
   padding: 1.75rem;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  transition: 
+    transform var(--transition-normal), 
+    box-shadow var(--transition-normal), 
+    border-color var(--transition-normal),
+    background var(--transition-normal);
   position: relative;
   overflow: hidden;
 }
 
+/* Liquid Meniscus Top Specular Line */
 .card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+  height: 1.5px;
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.55) 25%, 
+    rgba(6, 182, 212, 0.45) 50%, 
+    rgba(139, 92, 246, 0.45) 75%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
   pointer-events: none;
 }
 
+/* Liquid Caustic Hover Elevation */
 .card:hover {
-  border-color: var(--glass-border-hover);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.05);
+  border-color: var(--liquid-border-hover);
+  box-shadow: 
+    0 22px 46px -8px rgba(0, 0, 0, 0.65), 
+    0 0 25px rgba(139, 92, 246, 0.12),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
 }
 
 .card h2 {
@@ -334,11 +431,16 @@ html {
   color: var(--text-primary);
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Forms and inputs */
+/* ==========================================================================
+   Forms & Recessed Liquid Wells
+   ========================================================================== */
 
 .form-group {
   margin-bottom: 1.25rem;
@@ -359,19 +461,26 @@ html {
   color: var(--error);
 }
 
+/* Recessed liquid well appearance */
 input[type="text"],
 input[type="date"],
 textarea,
 select {
   width: 100%;
-  padding: 0.8rem 1.1rem;
+  padding: 0.85rem 1.15rem;
   font-family: inherit;
   font-size: 0.95rem;
   color: var(--text-primary);
-  background: rgba(10, 12, 28, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--liquid-well-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.4), 
+    0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: 
+    border-color var(--transition-fast), 
+    box-shadow var(--transition-fast), 
+    background var(--transition-fast);
 }
 
 select {
@@ -379,7 +488,7 @@ select {
 }
 
 select option {
-  background-color: #0f1427;
+  background-color: #0b0f24;
   color: #ffffff;
   padding: 0.5rem;
 }
@@ -405,10 +514,10 @@ select option {
   transform: translateY(-50%);
   background: transparent;
   border: none;
-  color: #f8fafc;
+  color: #c7d2fe;
   font-size: 1.05rem;
   cursor: pointer;
-  padding: 0.35rem;
+  padding: 0.4rem;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -419,11 +528,12 @@ select option {
 .date-picker-trigger:hover,
 .date-input-container:hover .date-picker-trigger {
   color: #ffffff;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.75));
+  transform: translateY(-50%) scale(1.1);
 }
 
 /* ==========================================================================
-   Aurora Glassmorphic Date Picker Popover
+   Liquid Glass Date Picker Popover (Floating Optical Crystal)
    ========================================================================== */
 
 .glass-datepicker {
@@ -433,14 +543,16 @@ select option {
   max-width: calc(100vw - 20px);
   max-height: calc(100vh - 20px);
   user-select: none;
-  background: rgba(13, 17, 34, 0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(145deg, rgba(18, 23, 48, 0.96) 0%, rgba(9, 12, 27, 0.98) 100%);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-lg);
   box-shadow: 
-    0 25px 50px -10px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(139, 92, 246, 0.2);
+    0 25px 60px -10px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(139, 92, 246, 0.22),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.08);
   padding: 1.25rem;
   overflow-y: auto;
   overflow-x: hidden;
@@ -454,7 +566,7 @@ select option {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 0.9) 50%, rgba(6, 182, 212, 0) 100%);
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 0.9) 35%, rgba(6, 182, 212, 0.9) 70%, rgba(6, 182, 212, 0) 100%);
   pointer-events: none;
 }
 
@@ -469,18 +581,19 @@ select option {
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  background: linear-gradient(135deg, #ffffff 40%, #c7d2fe 80%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #ffffff 20%, #e0e7ff 65%, #c4b5fd 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .datepicker-nav-btn {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.25);
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -491,9 +604,10 @@ select option {
 }
 
 .datepicker-nav-btn:hover {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.25);
   color: #ffffff;
-  border-color: rgba(139, 92, 246, 0.4);
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 12px var(--primary-glow), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
 .datepicker-weekdays {
@@ -537,22 +651,26 @@ select option {
 }
 
 .datepicker-day:hover:not(.other-month):not(.selected) {
-  background: rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.22);
+  border-color: rgba(139, 92, 246, 0.4);
   color: #ffffff;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.3);
 }
 
 .datepicker-day.today {
   border-color: var(--secondary);
   color: #67e8f9;
+  box-shadow: inset 0 0 6px rgba(6, 182, 212, 0.2);
 }
 
 .datepicker-day.selected {
-  background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
   color: #ffffff;
   font-weight: 700;
-  border-color: transparent;
-  box-shadow: 0 0 12px var(--primary-glow);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 0 14px var(--primary-glow),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.6);
 }
 
 .datepicker-footer {
@@ -565,13 +683,13 @@ select option {
 
 .datepicker-today-btn,
 .datepicker-clear-btn {
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   font-family: inherit;
   font-size: 0.775rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 0.25rem 0.55rem;
+  padding: 0.3rem 0.65rem;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
 }
@@ -581,8 +699,10 @@ select option {
 }
 
 .datepicker-today-btn:hover {
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
   color: #ffffff;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.25);
 }
 
 .datepicker-clear-btn {
@@ -590,12 +710,14 @@ select option {
 }
 
 .datepicker-clear-btn:hover {
-  background: rgba(244, 63, 94, 0.15);
+  background: rgba(244, 63, 94, 0.2);
+  border-color: rgba(244, 63, 94, 0.4);
   color: #ffffff;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.25);
 }
 
 /* ==========================================================================
-   Aurora Glassmorphic Custom Dropdowns
+   Liquid Glass Custom Dropdowns
    ========================================================================== */
 
 .custom-dropdown {
@@ -605,25 +727,33 @@ select option {
 
 .custom-dropdown-trigger {
   width: 100%;
-  padding: 0.8rem 1.1rem;
+  padding: 0.85rem 1.15rem;
   font-family: inherit;
   font-size: 0.95rem;
   color: var(--text-primary);
-  background: rgba(10, 12, 28, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--liquid-well-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.4), 
+    0 1px 1px rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  transition: 
+    border-color var(--transition-fast), 
+    box-shadow var(--transition-fast), 
+    background var(--transition-fast);
 }
 
 .custom-dropdown-trigger:hover,
 .custom-dropdown.open .custom-dropdown-trigger {
-  background: rgba(10, 12, 28, 0.75);
+  background: linear-gradient(180deg, rgba(12, 16, 36, 0.85) 0%, rgba(18, 24, 52, 0.7) 100%);
   border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 0 16px rgba(139, 92, 246, 0.25), 
+    inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .custom-dropdown-icon {
@@ -642,13 +772,17 @@ select option {
   top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: rgba(13, 17, 34, 0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(145deg, rgba(18, 23, 48, 0.96) 0%, rgba(9, 12, 27, 0.98) 100%);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-md);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(139, 92, 246, 0.15);
-  padding: 0.4rem;
+  box-shadow: 
+    0 18px 45px rgba(0, 0, 0, 0.75), 
+    0 0 30px rgba(139, 92, 246, 0.18),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.08);
+  padding: 0.45rem;
   z-index: 500;
   max-height: 220px;
   overflow-y: auto;
@@ -677,16 +811,18 @@ select option {
 }
 
 .custom-dropdown-item:hover {
-  background: rgba(139, 92, 246, 0.15);
-  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.25);
   color: #ffffff;
 }
 
 .custom-dropdown-item.selected {
-  background: rgba(139, 92, 246, 0.22);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(6, 182, 212, 0.2) 100%);
   color: #ffffff;
   font-weight: 600;
-  border-color: rgba(139, 92, 246, 0.35);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .custom-dropdown-item.selected::after {
@@ -695,6 +831,7 @@ select option {
   font-weight: 900;
   font-size: 0.75rem;
   color: var(--secondary);
+  text-shadow: 0 0 8px var(--secondary-glow);
 }
 
 /* Custom dropdown for card status badge */
@@ -706,7 +843,7 @@ select option {
 .custom-status-container .custom-dropdown-menu {
   right: 0;
   left: auto;
-  min-width: 155px;
+  min-width: 160px;
 }
 
 .custom-status-container .status-badge {
@@ -736,11 +873,6 @@ select option {
   overflow: visible;
 }
 
-.assignment-card::before {
-  border-top-left-radius: var(--radius-lg);
-  border-bottom-left-radius: var(--radius-lg);
-}
-
 .form-group.dropdown-open,
 .filter-controls .form-group:focus-within {
   z-index: 50;
@@ -758,8 +890,8 @@ select option {
 
 textarea::-webkit-resizer {
   background-color: transparent;
-  border-bottom: 2px solid rgba(139, 92, 246, 0.4);
-  border-right: 2px solid rgba(139, 92, 246, 0.4);
+  border-bottom: 2px solid rgba(139, 92, 246, 0.5);
+  border-right: 2px solid rgba(139, 92, 246, 0.5);
 }
 
 input[type="text"]:focus,
@@ -767,9 +899,12 @@ input[type="date"]:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  background: rgba(10, 12, 28, 0.75);
+  background: linear-gradient(180deg, rgba(10, 14, 32, 0.88) 0%, rgba(16, 21, 48, 0.7) 100%);
   border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.2), inset 0 0 5px rgba(139, 92, 246, 0.1);
+  box-shadow: 
+    0 0 0 3px rgba(139, 92, 246, 0.25),
+    inset 0 1.5px 3px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(139, 92, 246, 0.2);
 }
 
 /* Form validation */
@@ -777,7 +912,8 @@ select:focus {
 .form-group.has-error input,
 .form-group.has-error textarea {
   border-color: var(--error);
-  background-color: rgba(244, 63, 94, 0.05);
+  background-color: rgba(244, 63, 94, 0.08);
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .error-msg {
@@ -790,7 +926,9 @@ select:focus {
   letter-spacing: 0.01em;
 }
 
-/* Buttons */
+/* ==========================================================================
+   Liquid Buttons (Glossy Fluid Capsules & Jelly Sheen)
+   ========================================================================== */
 
 .btn {
   display: inline-flex;
@@ -802,19 +940,40 @@ select:focus {
   font-weight: 600;
   border-radius: var(--radius-md);
   cursor: pointer;
-  border: none;
+  border: 1px solid transparent;
   transition: all var(--transition-normal);
   width: 100%;
   position: relative;
   overflow: hidden;
+  user-select: none;
 }
 
+/* High-Gloss Liquid Primary Button */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 55%, #06b6d4 100%);
   color: var(--white);
-  box-shadow: 0 4px 15px var(--primary-glow);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    0 4px 20px var(--primary-glow),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 1px 0 rgba(0, 0, 0, 0.25);
 }
 
+/* Specular Lens Reflection Arc */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  pointer-events: none;
+}
+
+/* Fluid Light Sweep */
 .btn-primary::before {
   content: '';
   position: absolute;
@@ -822,14 +981,17 @@ select:focus {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
   transition: left var(--transition-slow);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5), 0 0 10px rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 8px 28px rgba(139, 92, 246, 0.6), 
+    0 0 16px rgba(6, 182, 212, 0.4),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.85);
   transform: translateY(-2px);
-  background: linear-gradient(135deg, #9b6bf7 0%, #5c54f0 100%);
+  background: linear-gradient(135deg, #9b6bf7 0%, #7073f3 55%, #08c2e2 100%);
 }
 
 .btn-primary:hover::before {
@@ -837,57 +999,38 @@ select:focus {
 }
 
 .btn-primary:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 10px var(--primary-glow);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 10px var(--primary-glow), inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+/* Translucent Droplet Glass Secondary Button */
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-secondary);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.25), 
+    0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
-  border-color: var(--glass-border-hover);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.4), 
+    0 4px 14px rgba(0, 0, 0, 0.35);
   transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 .form-actions {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-/* Placeholder box */
-
-.placeholder-box {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.placeholder-box p {
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.placeholder-box ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.placeholder-box li {
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
 }
 
 /* Filter controls */
@@ -906,16 +1049,17 @@ select:focus {
 }
 
 .btn-clear-filters {
-  background: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
   color: var(--text-secondary);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.2);
   gap: 0.5rem;
 }
 
 .btn-clear-filters:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
   color: var(--text-primary);
-  border-color: var(--glass-border-hover);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
 }
 
@@ -927,7 +1071,9 @@ select:focus {
   gap: 0.5rem;
 }
 
-/* Assignments section */
+/* ==========================================================================
+   Assignments Section & Liquid Cards
+   ========================================================================== */
 
 .assignments-section {
   display: flex;
@@ -944,24 +1090,28 @@ select:focus {
 }
 
 .section-header h2 {
-  font-size: 1.4rem;
+  display: inline-block;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  background: linear-gradient(90deg, #ffffff, #c7d2fe);
+  background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 60%, #67e8f9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* Liquid Jelly Counter Badge */
 .badge {
-  background: rgba(139, 92, 246, 0.12);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.12) 100%);
   color: #c7d2fe;
   font-size: 0.8rem;
   font-weight: 600;
-  padding: 0.3rem 0.8rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(139, 92, 246, 0.25);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.05);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    0 0 12px rgba(139, 92, 246, 0.15);
 }
 
 /* Assignments grid */
@@ -972,62 +1122,95 @@ select:focus {
   gap: 1.25rem;
 }
 
-/* Assignment card */
+/* Assignment Card - Liquid Glass Monolith */
 
 .assignment-card {
-  background: rgba(15, 20, 39, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(16, 21, 46, 0.45) 35%, rgba(9, 12, 28, 0.65) 100%);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid var(--liquid-border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  padding: 1.5rem 1.5rem 1.5rem 1.85rem;
+  box-shadow: var(--shadow-liquid-sm);
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
   position: relative;
-  overflow: hidden;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal), background-color var(--transition-normal);
+  transition: 
+    transform var(--transition-normal), 
+    box-shadow var(--transition-normal), 
+    border-color var(--transition-normal), 
+    background var(--transition-normal);
 }
 
-.assignment-card:hover {
-  transform: translateY(-4px);
-  background: rgba(22, 28, 54, 0.5);
-  border-color: rgba(139, 92, 246, 0.25);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.08);
-}
-
-/* Status accent on the left side of the card */
-
-.assignment-card::before {
+/* Specular Upper Meniscus Highlight */
+.assignment-card > .card-top::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 30%, rgba(255, 255, 255, 0) 100%);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  pointer-events: none;
+}
+
+.assignment-card:hover {
+  transform: translateY(-4px);
+  background: var(--liquid-bg-hover);
+  border-color: var(--liquid-border-hover);
+  box-shadow: 
+    var(--shadow-liquid-md), 
+    0 0 24px rgba(139, 92, 246, 0.12);
+}
+
+/* Liquid Pill Status Droplet Bar on the left side */
+
+.assignment-card::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  bottom: 14px;
   width: 4px;
+  border-radius: var(--radius-pill);
   background-color: var(--secondary);
-  box-shadow: 2px 0 8px var(--secondary-glow);
-  transition: width var(--transition-fast);
+  box-shadow: 0 0 10px var(--secondary-glow), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  transition: width var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .assignment-card.status-not-started::before {
   background-color: var(--error);
-  box-shadow: 2px 0 8px var(--error-glow);
+  box-shadow: 0 0 10px var(--error-glow), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .assignment-card.status-in-progress::before {
   background-color: var(--warning);
-  box-shadow: 2px 0 8px var(--warning-glow);
+  box-shadow: 0 0 10px var(--warning-glow), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .assignment-card.status-completed::before {
   background-color: var(--success);
-  box-shadow: 2px 0 8px var(--success-glow);
+  box-shadow: 0 0 10px var(--success-glow), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .assignment-card:hover::before {
-  width: 6px;
+  width: 5px;
+  box-shadow: 0 0 16px var(--secondary-glow), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.assignment-card.status-not-started:hover::before {
+  box-shadow: 0 0 16px var(--error-glow), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.assignment-card.status-in-progress:hover::before {
+  box-shadow: 0 0 16px var(--warning-glow), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.assignment-card.status-completed:hover::before {
+  box-shadow: 0 0 16px var(--success-glow), inset 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 /* Card top row */
@@ -1061,6 +1244,7 @@ select:focus {
   margin-top: 0.2rem;
 }
 
+/* Course Lozenge (Liquid Droplet Tag) */
 .card-course {
   display: inline-block;
   align-self: flex-start;
@@ -1069,12 +1253,14 @@ select:focus {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #c7d2fe;
-  background: rgba(139, 92, 246, 0.12);
-  padding: 0.2rem 0.6rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0.08) 100%);
+  padding: 0.22rem 0.65rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.25);
 }
 
+/* Deadline Badges (Liquid Jelly Lozenges) */
 .deadline-badge {
   display: inline-flex;
   align-items: center;
@@ -1083,36 +1269,47 @@ select:focus {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 0.2rem 0.55rem;
-  border-radius: var(--radius-sm);
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
   white-space: nowrap;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.35);
 }
 
 .deadline-badge.overdue {
-  background: rgba(244, 63, 94, 0.15);
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.22) 0%, rgba(244, 63, 94, 0.1) 100%);
   color: #fb7185;
-  border: 1px solid rgba(244, 63, 94, 0.35);
-  box-shadow: 0 0 8px rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  box-shadow: 
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.35),
+    0 0 10px rgba(244, 63, 94, 0.2);
 }
 
 .deadline-badge.due-soon {
-  background: rgba(245, 158, 11, 0.15);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0.1) 100%);
   color: #fcd34d;
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.15);
-  animation: pulse-red 2s infinite ease-in-out;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.35),
+    0 0 10px rgba(245, 158, 11, 0.2);
+  animation: pulse-liquid-amber 2s infinite ease-in-out;
 }
 
 .deadline-badge.upcoming {
-  background: rgba(6, 182, 212, 0.12);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.18) 0%, rgba(6, 182, 212, 0.08) 100%);
   color: #67e8f9;
-  border: 1px solid rgba(6, 182, 212, 0.25);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.35),
+    0 0 8px rgba(6, 182, 212, 0.15);
 }
 
 .deadline-badge.completed {
-  background: rgba(16, 185, 129, 0.12);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0.08) 100%);
   color: #6ee7b7;
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.35),
+    0 0 8px rgba(16, 185, 129, 0.15);
 }
 
 /* Status dropdown */
@@ -1123,12 +1320,13 @@ select:focus {
   flex-shrink: 0;
 }
 
+/* Liquid Jelly Status Badge */
 .status-badge {
   font-family: inherit;
   font-size: 0.725rem;
   font-weight: 700;
-  padding: 0.4rem 0.75rem;
-  border-radius: 9999px;
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
@@ -1137,47 +1335,58 @@ select:focus {
   outline: none;
   appearance: auto;
   -webkit-appearance: auto;
+  position: relative;
+  box-shadow: 
+    inset 0 1.2px 1px rgba(255, 255, 255, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.25);
   transition:
-    background-color var(--transition-fast),
+    background var(--transition-fast),
     border-color var(--transition-fast),
     box-shadow var(--transition-fast),
     transform var(--transition-fast);
 }
 
 .status-badge.not-started {
-  background-color: rgba(244, 63, 94, 0.15);
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.24) 0%, rgba(244, 63, 94, 0.1) 100%);
   color: #fb7185;
-  border-color: rgba(244, 63, 94, 0.35);
-  box-shadow: 0 0 10px rgba(244, 63, 94, 0.08);
+  border-color: rgba(244, 63, 94, 0.45);
+  box-shadow: 
+    inset 0 1.2px 1px rgba(255, 255, 255, 0.45),
+    0 0 12px rgba(244, 63, 94, 0.15);
 }
 
 .status-badge.in-progress {
-  background-color: rgba(245, 158, 11, 0.15);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24) 0%, rgba(245, 158, 11, 0.1) 100%);
   color: #fcd34d;
-  border-color: rgba(245, 158, 11, 0.35);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 
+    inset 0 1.2px 1px rgba(255, 255, 255, 0.45),
+    0 0 12px rgba(245, 158, 11, 0.15);
 }
 
 .status-badge.completed {
-  background-color: rgba(16, 185, 129, 0.15);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.24) 0%, rgba(16, 185, 129, 0.1) 100%);
   color: #6ee7b7;
-  border-color: rgba(16, 185, 129, 0.35);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 
+    inset 0 1.2px 1px rgba(255, 255, 255, 0.45),
+    0 0 12px rgba(16, 185, 129, 0.15);
 }
 
 .status-badge:hover {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
 }
 
 .status-badge:focus {
   box-shadow:
-    0 0 0 2px rgba(139, 92, 246, 0.25),
-    0 0 12px rgba(139, 92, 246, 0.15);
+    0 0 0 2px rgba(139, 92, 246, 0.35),
+    0 0 16px rgba(139, 92, 246, 0.25),
+    inset 0 1.2px 1px rgba(255, 255, 255, 0.5);
 }
 
 .status-badge option {
-  background-color: #0f1427;
+  background-color: #0b0f24;
   color: #ffffff;
   font-weight: 600;
 }
@@ -1197,7 +1406,7 @@ select:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 1rem;
   margin-top: auto;
   font-size: 0.85rem;
@@ -1216,32 +1425,37 @@ select:focus {
 .card-due-date.urgent {
   color: #ff809b;
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(244, 63, 94, 0.4);
-  animation: pulse-red 2s infinite ease-in-out;
+  text-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+  animation: pulse-liquid-red 2s infinite ease-in-out;
 }
 
 .card-due-date.overdue {
   color: #fb7185;
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(244, 63, 94, 0.35);
+  text-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
 }
 
 .card-due-date.due-today {
   color: #fcd34d;
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(245, 158, 11, 0.35);
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
 }
 
 .card-due-date.completed {
   color: var(--text-muted);
 }
 
-@keyframes pulse-red {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; transform: scale(1.01); }
+@keyframes pulse-liquid-red {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px rgba(244, 63, 94, 0.4)); }
+  50% { opacity: 0.75; transform: scale(1.02); filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.8)); }
 }
 
-/* Card action buttons */
+@keyframes pulse-liquid-amber {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; transform: scale(1.02); }
+}
+
+/* Card action buttons (Liquid Mini Droplets) */
 
 .card-actions {
   display: flex;
@@ -1249,10 +1463,11 @@ select:focus {
 }
 
 .btn-icon {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  padding: 0.45rem;
+  padding: 0.5rem;
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
   display: flex;
@@ -1262,36 +1477,41 @@ select:focus {
 }
 
 .btn-icon:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
   color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
 .btn-icon-delete:hover {
   color: #ff6b8b;
-  background-color: rgba(244, 63, 94, 0.15);
-  border-color: rgba(244, 63, 94, 0.3);
-  box-shadow: 0 0 10px rgba(244, 63, 94, 0.1);
+  background: rgba(244, 63, 94, 0.2);
+  border-color: rgba(244, 63, 94, 0.45);
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.25), inset 0 1px 0.5px rgba(255, 255, 255, 0.3);
 }
 
 .btn-icon-edit:hover {
-  color: #a78bfa;
-  background-color: rgba(139, 92, 246, 0.15);
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.1);
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.25), inset 0 1px 0.5px rgba(255, 255, 255, 0.3);
 }
 
-/* Empty state */
+/* ==========================================================================
+   Empty State (Liquid Caustic Basin)
+   ========================================================================== */
 
 .empty-state {
-  background: rgba(15, 20, 39, 0.3);
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(16, 21, 46, 0.3) 100%);
+  border: 1.5px dashed rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-lg);
+  backdrop-filter: blur(14px);
   padding: 4.5rem 2rem;
   text-align: center;
   color: var(--text-secondary);
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 .empty-state::before {
@@ -1301,19 +1521,26 @@ select:focus {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, rgba(139, 92, 246, 0) 60%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.04) 35%, transparent 65%);
   pointer-events: none;
+  animation: liquid-caustic-drift 18s infinite alternate ease-in-out;
+}
+
+@keyframes liquid-caustic-drift {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.15) rotate(45deg); }
 }
 
 .empty-icon {
   font-size: 3.5rem;
   margin-bottom: 1.25rem;
-  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.3));
+  color: #c7d2fe;
+  filter: drop-shadow(0 0 16px rgba(139, 92, 246, 0.5));
   animation: float-icon 6s infinite ease-in-out;
 }
 
 .empty-state h3 {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
@@ -1332,20 +1559,23 @@ select:focus {
 
 @keyframes pulse-icon {
   0%, 100% { filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.4)); }
-  50% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.7)); }
+  50% { filter: drop-shadow(0 0 22px rgba(139, 92, 246, 0.8)); }
 }
 
-/* Footer */
+/* ==========================================================================
+   Footer (Liquid Glass Bar)
+   ========================================================================== */
 
 .app-footer {
-  background: rgba(4, 5, 11, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(9, 12, 26, 0.75) 0%, rgba(4, 5, 11, 0.94) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: var(--text-secondary);
   text-align: center;
   padding: 2.5rem 1.5rem;
   margin-top: 5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   font-size: 0.85rem;
 }
 
@@ -1413,7 +1643,9 @@ select:focus {
   }
 }
 
-/* Edit assignment modal - Aurora Glassmorphism */
+/* ==========================================================================
+   Edit Assignment Modal - Liquid Glass Monolith
+   ========================================================================== */
 
 .modal {
   position: fixed;
@@ -1421,9 +1653,9 @@ select:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(4, 5, 11, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(3, 4, 9, 0.8);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
 
   display: flex;
   align-items: flex-start;
@@ -1444,17 +1676,18 @@ select:focus {
   overflow-x: hidden;
   overscroll-behavior: contain;
 
-  background: rgba(13, 17, 34, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
+  background: linear-gradient(145deg, rgba(18, 23, 48, 0.94) 0%, rgba(9, 12, 27, 0.98) 100%);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
 
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.8),
-    0 0 35px rgba(139, 92, 246, 0.15),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    0 32px 68px -12px rgba(0, 0, 0, 0.9),
+    0 0 45px rgba(139, 92, 246, 0.2),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.08);
   position: relative;
   animation: modal-scale-up 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1466,20 +1699,21 @@ select:focus {
 
 .modal-content::-webkit-scrollbar-track {
   background: rgba(10, 12, 28, 0.4);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   margin: 8px 0;
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.35);
-  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.4);
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4);
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
 
-/* Glowing top ambient border line */
+/* Prismatic Meniscus Top Line */
 .modal-content::before {
   content: '';
   position: absolute;
@@ -1487,7 +1721,7 @@ select:focus {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 0.85) 50%, rgba(6, 182, 212, 0) 100%);
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 0.9) 35%, rgba(6, 182, 212, 0.9) 70%, rgba(6, 182, 212, 0) 100%);
   pointer-events: none;
 }
 
@@ -1507,17 +1741,18 @@ select:focus {
 }
 
 .modal-title-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  background: rgba(139, 92, 246, 0.15);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(6, 182, 212, 0.15) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.35);
   color: #c7d2fe;
   font-size: 0.95rem;
-  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.3));
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4));
 }
 
 .modal-header h2 {
@@ -1532,8 +1767,9 @@ select:focus {
 }
 
 .modal-close {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.2);
   font-size: 1rem;
   width: 34px;
   height: 34px;
@@ -1548,8 +1784,9 @@ select:focus {
 
 .modal-close:hover {
   color: #ffffff;
-  background: rgba(244, 63, 94, 0.2);
-  border-color: rgba(244, 63, 94, 0.4);
+  background: rgba(244, 63, 94, 0.25);
+  border-color: rgba(244, 63, 94, 0.5);
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
   transform: rotate(90deg);
 }
 
@@ -1559,7 +1796,7 @@ select:focus {
   gap: 0.75rem;
   margin-top: 1.75rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .modal-actions .btn {
@@ -1569,17 +1806,17 @@ select:focus {
 }
 
 .modal-actions .btn-secondary {
-  border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
   color: var(--text-secondary);
   font-family: inherit;
   font-weight: 600;
 }
 
 .modal-actions .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
   color: var(--text-primary);
-  border-color: var(--glass-border-hover);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 @keyframes modal-fade-in {
@@ -1610,7 +1847,7 @@ select:focus {
   }
 
   .modal-content {
-    padding: 1.25rem;
+    padding: 1.35rem;
     max-height: 95vh;
   }
 
