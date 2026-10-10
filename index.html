@@ -7,12 +7,12 @@
 
   <title>StudyTrack - Student Assignment Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=4.0">
+  <link rel="stylesheet" href="css/styles.css?v=4.1">
 
-  <!-- FontAwesome 6 -->
+  <!-- Boxicons 2.1.4 -->
   <link
     rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
   >
 
   <!-- Google Font -->
@@ -26,12 +26,8 @@
 
 <body>
 
-  <!-- Ambient Aurora Background -->
-  <div class="aurora-ambient">
-    <div class="aurora-orb orb-purple"></div>
-    <div class="aurora-orb orb-cyan"></div>
-    <div class="aurora-orb orb-blue"></div>
-  </div>
+  <!-- Subtle Ambient Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
 
 
   <!-- Header -->
@@ -40,7 +36,7 @@
 
       <div class="logo-area">
         <span class="logo-icon">
-          <i class="fa-solid fa-graduation-cap"></i>
+          <i class="bx bxs-graduation"></i>
         </span>
 
         <h1>StudyTrack</h1>
@@ -57,6 +53,136 @@
   <!-- Main Application Content -->
   <main class="app-content">
     <div class="content-container">
+
+      <!-- Progress Dashboard -->
+      <section class="card progress-dashboard" id="progress-dashboard" aria-label="Assignment Progress Dashboard">
+
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div class="dashboard-title">
+            <i class="bx bx-bar-chart-alt-2"></i>
+            <h2>Progress Dashboard</h2>
+          </div>
+
+          <div class="dashboard-badge" id="dashboard-badge">
+            <i class="bx bx-trending-up"></i>
+            <span id="dashboard-rate-badge">0% Completed</span>
+          </div>
+        </div>
+
+        <!-- Dashboard Body -->
+        <div class="dashboard-body">
+
+          <!-- Visual Progress Meter & Track -->
+          <div class="progress-meter-container">
+
+            <div class="progress-ring-wrapper">
+              <svg class="progress-ring" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <linearGradient id="dashboard-ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#67C7F5" />
+                    <stop offset="100%" stop-color="#10B981" />
+                  </linearGradient>
+                </defs>
+                <circle class="progress-ring-bg" cx="60" cy="60" r="50"></circle>
+                <circle class="progress-ring-fill" id="dashboard-ring-fill" cx="60" cy="60" r="50"></circle>
+              </svg>
+              <div class="progress-ring-content">
+                <span class="progress-ring-value" id="dashboard-completion-rate">0%</span>
+                <span class="progress-ring-label">Complete</span>
+              </div>
+            </div>
+
+            <div class="progress-meter-details">
+              <div class="progress-meta">
+                <span class="progress-meta-title">Academic Progress</span>
+                <span class="progress-meta-count" id="dashboard-progress-ratio">0 of 0 Completed</span>
+              </div>
+
+              <div
+                class="progress-bar-track"
+                role="progressbar"
+                id="dashboard-progress-bar"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-label="Assignment completion rate"
+                aria-valuetext="0% completed"
+              >
+                <div class="progress-bar-fill" id="dashboard-progress-fill" style="width: 0%;"></div>
+              </div>
+
+              <p class="progress-status-message" id="dashboard-status-message">
+                No assignments yet. Add an assignment to start tracking your progress.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Statistics Grid -->
+          <div class="stats-grid">
+
+            <!-- Total Assignments -->
+            <div class="stat-card stat-total">
+              <div class="stat-header">
+                <span class="stat-label">Total Assignments</span>
+                <div class="stat-icon">
+                  <i class="bx bx-collection"></i>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-total">0</div>
+              <div class="stat-footer">
+                <span class="stat-subtext">All saved tasks</span>
+              </div>
+            </div>
+
+            <!-- Completed -->
+            <div class="stat-card stat-completed">
+              <div class="stat-header">
+                <span class="stat-label">Completed</span>
+                <div class="stat-icon">
+                  <i class="bx bx-check-circle"></i>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-completed">0</div>
+              <div class="stat-footer">
+                <span class="stat-subtext" id="stat-completed-rate">0% completion</span>
+              </div>
+            </div>
+
+            <!-- In Progress -->
+            <div class="stat-card stat-in-progress">
+              <div class="stat-header">
+                <span class="stat-label">In Progress</span>
+                <div class="stat-icon">
+                  <i class="bx bx-time-five"></i>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-in-progress">0</div>
+              <div class="stat-footer">
+                <span class="stat-subtext">Active tasks</span>
+              </div>
+            </div>
+
+            <!-- Not Started -->
+            <div class="stat-card stat-not-started">
+              <div class="stat-header">
+                <span class="stat-label">Not Started</span>
+                <div class="stat-icon">
+                  <i class="bx bx-circle"></i>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-not-started">0</div>
+              <div class="stat-footer">
+                <span class="stat-subtext">Pending tasks</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
 
       <!-- Left Column -->
@@ -129,7 +255,7 @@
                   aria-label="Open calendar"
                   tabindex="-1"
                 >
-                  <i class="fa-regular fa-calendar-days"></i>
+                  <i class="bx bx-calendar"></i>
                 </button>
               </div>
 
@@ -177,90 +303,6 @@
         </section>
 
 
-        <!-- Filter & Organize -->
-        <section class="card filter-section">
-          <h2>Filter & Organize</h2>
-
-          <div class="filter-controls">
-
-            <!-- Filter by Course -->
-            <div class="form-group">
-              <label for="filter-course">
-                <i class="fa-solid fa-book"></i> Filter by Course
-              </label>
-
-              <select
-                id="filter-course"
-                aria-label="Filter assignments by course"
-              >
-                <option value="all">All Courses</option>
-              </select>
-            </div>
-
-            <!-- Filter by Status -->
-            <div class="form-group">
-              <label for="filter-status">
-                <i class="fa-solid fa-list-check"></i> Filter by Status
-              </label>
-
-              <select
-                id="filter-status"
-                aria-label="Filter assignments by status"
-              >
-                <option value="all">All Statuses</option>
-                <option value="Not Started">Not Started</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
-
-            <!-- Filter by Upcoming Deadlines -->
-            <div class="form-group">
-              <label for="filter-deadline">
-                <i class="fa-regular fa-calendar-days"></i> Deadlines
-              </label>
-
-              <select
-                id="filter-deadline"
-                aria-label="Filter assignments by deadline"
-              >
-                <option value="all">All Deadlines</option>
-                <option value="upcoming">Upcoming</option>
-                <option value="due-soon">Due Soon (&le; 48 hrs)</option>
-                <option value="overdue">Overdue / Past Due</option>
-              </select>
-            </div>
-
-            <!-- Sort Assignments -->
-            <div class="form-group">
-              <label for="sort-by">
-                <i class="fa-solid fa-arrow-down-short-wide"></i> Sort By
-              </label>
-
-              <select
-                id="sort-by"
-                aria-label="Sort assignments"
-              >
-                <option value="due-asc">Due Date (Earliest First)</option>
-                <option value="due-desc">Due Date (Latest First)</option>
-                <option value="name-asc">Assignment Name (A-Z)</option>
-              </select>
-            </div>
-
-            <!-- Filter Actions -->
-            <div class="filter-actions">
-              <button
-                type="button"
-                id="clear-filters-btn"
-                class="btn btn-secondary btn-clear-filters"
-              >
-                <i class="fa-solid fa-rotate-left"></i> Reset Filters
-              </button>
-            </div>
-
-          </div>
-        </section>
-
       </aside>
 
 
@@ -282,6 +324,97 @@
         </div>
 
 
+        <!-- Filter & Organize Toolbar -->
+        <section class="card filter-section" aria-label="Filter and organize assignments">
+          <div class="filter-header">
+            <div class="filter-title">
+              <i class="bx bx-slider-alt"></i>
+              <h2>Filter &amp; Organize</h2>
+            </div>
+          </div>
+
+          <div class="filter-controls">
+
+            <!-- Filter by Course -->
+            <div class="form-group filter-group-course">
+              <label for="filter-course">
+                <i class="bx bx-book"></i> Course
+              </label>
+
+              <select
+                id="filter-course"
+                aria-label="Filter assignments by course"
+              >
+                <option value="all">All Courses</option>
+              </select>
+            </div>
+
+            <!-- Filter by Status -->
+            <div class="form-group filter-group-status">
+              <label for="filter-status">
+                <i class="bx bx-list-check"></i> Status
+              </label>
+
+              <select
+                id="filter-status"
+                aria-label="Filter assignments by status"
+              >
+                <option value="all">All Statuses</option>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <!-- Filter by Upcoming Deadlines -->
+            <div class="form-group filter-group-deadline">
+              <label for="filter-deadline">
+                <i class="bx bx-calendar"></i> Deadlines
+              </label>
+
+              <select
+                id="filter-deadline"
+                aria-label="Filter assignments by deadline"
+              >
+                <option value="all">All Deadlines</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="due-soon">Due Soon (&le; 48 hrs)</option>
+                <option value="overdue">Overdue / Past Due</option>
+              </select>
+            </div>
+
+            <!-- Sort Assignments -->
+            <div class="form-group filter-group-sort">
+              <label for="sort-by">
+                <i class="bx bx-sort-alt-2"></i> Sort By
+              </label>
+
+              <select
+                id="sort-by"
+                aria-label="Sort assignments"
+              >
+                <option value="due-asc">Due Date (Earliest First)</option>
+                <option value="due-desc">Due Date (Latest First)</option>
+                <option value="name-asc">Assignment Name (A-Z)</option>
+              </select>
+            </div>
+
+            <!-- Filter Actions -->
+            <div class="filter-actions">
+              <button
+                type="button"
+                id="clear-filters-btn"
+                class="btn btn-secondary btn-clear-filters"
+                title="Reset all filters to default"
+              >
+                <i class="bx bx-reset"></i> Reset
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+
         <!-- Assignment Cards -->
         <div
           id="assignments-list"
@@ -295,7 +428,7 @@
           >
 
             <div class="empty-icon">
-              <i class="fa-regular fa-clipboard"></i>
+              <i class="bx bx-clipboard"></i>
             </div>
 
             <h3>No assignments found</h3>
@@ -329,7 +462,7 @@
 
         <div class="modal-title-wrap">
           <span class="modal-title-icon">
-            <i class="fa-solid fa-pen-to-square"></i>
+            <i class="bx bx-edit-alt"></i>
           </span>
           <h2>Edit Assignment</h2>
         </div>
@@ -340,7 +473,7 @@
           class="modal-close"
           aria-label="Close edit assignment form"
         >
-          <i class="fa-solid fa-xmark"></i>
+          <i class="bx bx-x"></i>
         </button>
 
       </div>
@@ -416,7 +549,7 @@
               aria-label="Open calendar"
               tabindex="-1"
             >
-              <i class="fa-regular fa-calendar-days"></i>
+              <i class="bx bx-calendar"></i>
             </button>
           </div>
 
@@ -451,7 +584,7 @@
             id="cancel-edit"
             class="btn btn-secondary"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i class="bx bx-x"></i>
             Cancel
           </button>
 
@@ -459,7 +592,7 @@
             type="submit"
             class="btn btn-primary"
           >
-            <i class="fa-solid fa-check"></i>
+            <i class="bx bx-check"></i>
             Save Changes
           </button>
 
@@ -493,7 +626,7 @@
   <!-- Application JavaScript -->
   <script
     type="module"
-    src="js/app.js?v=3.2"
+    src="js/app.js?v=3.3"
   ></script>
 
 </body>
