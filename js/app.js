@@ -39,6 +39,20 @@ const filterDeadlineSelect = document.getElementById('filter-deadline');
 const sortBySelect = document.getElementById('sort-by');
 const clearFiltersBtn = document.getElementById('clear-filters-btn');
 
+// Progress Dashboard DOM Elements
+const statTotal = document.getElementById('stat-total');
+const statCompleted = document.getElementById('stat-completed');
+const statInProgress = document.getElementById('stat-in-progress');
+const statNotStarted = document.getElementById('stat-not-started');
+const statCompletedRate = document.getElementById('stat-completed-rate');
+const dashboardRateBadge = document.getElementById('dashboard-rate-badge');
+const dashboardCompletionRate = document.getElementById('dashboard-completion-rate');
+const dashboardProgressRatio = document.getElementById('dashboard-progress-ratio');
+const dashboardProgressBar = document.getElementById('dashboard-progress-bar');
+const dashboardProgressFill = document.getElementById('dashboard-progress-fill');
+const dashboardRingFill = document.getElementById('dashboard-ring-fill');
+const dashboardStatusMessage = document.getElementById('dashboard-status-message');
+
 /**
  * Initializes the application.
  */
@@ -210,14 +224,26 @@ function handleStatusChange(id, newStatus) {
  * Handles deletion of an assignment.
  */
 function handleDeleteAssignment(id) {
-  const updatedAssignments = assignments.filter(
-    assignment => assignment.id !== id
-  );
+  const card = document.querySelector(`.btn-icon-delete[data-id="${id}"]`)?.closest('.assignment-card');
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (saveAssignments(updatedAssignments)) {
-    assignments = updatedAssignments;
-    updateCourseFilterOptions();
-    render();
+  const performDelete = () => {
+    const updatedAssignments = assignments.filter(
+      assignment => assignment.id !== id
+    );
+
+    if (saveAssignments(updatedAssignments)) {
+      assignments = updatedAssignments;
+      updateCourseFilterOptions();
+      render();
+    }
+  };
+
+  if (card && !prefersReducedMotion) {
+    card.classList.add('card-deleting');
+    setTimeout(performDelete, 220);
+  } else {
+    performDelete();
   }
 }
 
@@ -533,7 +559,7 @@ function getDeadlineInfo(dueDateString, status) {
       isDueSoon: false,
       isUpcoming: false,
       label: 'No Due Date',
-      icon: 'fa-regular fa-calendar',
+      icon: 'bx bx-calendar',
       badgeClass: 'upcoming',
       dateClass: ''
     };
@@ -546,7 +572,7 @@ function getDeadlineInfo(dueDateString, status) {
       isDueSoon: false,
       isUpcoming: false,
       label: 'Completed',
-      icon: 'fa-solid fa-circle-check',
+      icon: 'bx bxs-check-circle',
       badgeClass: 'completed',
       dateClass: 'completed'
     };
@@ -574,7 +600,7 @@ function getDeadlineInfo(dueDateString, status) {
       isDueSoon: false,
       isUpcoming: false,
       label: `Overdue (${dayText})`,
-      icon: 'fa-solid fa-triangle-exclamation',
+      icon: 'bx bx-error-circle',
       badgeClass: 'overdue',
       dateClass: 'overdue urgent'
     };
@@ -587,7 +613,7 @@ function getDeadlineInfo(dueDateString, status) {
       isDueSoon: true,
       isUpcoming: true,
       label: 'Due Today',
-      icon: 'fa-solid fa-clock',
+      icon: 'bx bx-time',
       badgeClass: 'due-soon',
       dateClass: 'due-today urgent'
     };
@@ -600,7 +626,7 @@ function getDeadlineInfo(dueDateString, status) {
       isDueSoon: true,
       isUpcoming: true,
       label: 'Due Tomorrow',
-      icon: 'fa-solid fa-clock',
+      icon: 'bx bx-time',
       badgeClass: 'due-soon',
       dateClass: 'urgent'
     };
@@ -613,7 +639,7 @@ function getDeadlineInfo(dueDateString, status) {
       isDueSoon: true,
       isUpcoming: true,
       label: `Due in ${diffDays} days`,
-      icon: 'fa-solid fa-clock',
+      icon: 'bx bx-time',
       badgeClass: 'due-soon',
       dateClass: 'urgent'
     };
@@ -625,16 +651,127 @@ function getDeadlineInfo(dueDateString, status) {
     isDueSoon: false,
     isUpcoming: true,
     label: diffDays <= 7 ? `Due in ${diffDays} days` : 'Upcoming',
-    icon: 'fa-regular fa-calendar-check',
+    icon: 'bx bx-calendar-check',
     badgeClass: 'upcoming',
     dateClass: ''
   };
 }
 
 /**
+ * Calculates dashboard statistics based on all saved assignments.
+ * @param {Array} allAssignments - Array of all saved assignment objects.
+ * @returns {{total: number, completed: number, inProgress: number, notStarted: number, completionRate: number}} Dashboard statistics.
+ */
+export function calculateDashboardStats(allAssignments = []) {
+  const total = allAssignments.length;
+  let completed = 0;
+  let inProgress = 0;
+  let notStarted = 0;
+
+  for (const assignment of allAssignments) {
+    const status = assignment && assignment.status ? assignment.status.trim() : '';
+    if (status === 'Completed') {
+      completed++;
+    } else if (status === 'In Progress') {
+      inProgress++;
+    } else if (status === 'Not Started') {
+      notStarted++;
+    }
+  }
+
+  // Calculate completion rate percentage safely, avoiding division by zero
+  const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+  return {
+    total,
+    completed,
+    inProgress,
+    notStarted,
+    completionRate
+  };
+}
+
+/**
+ * Updates the Progress Dashboard UI elements with statistics from all saved assignments.
+ * @param {Array} [allAssignments=assignments] - Array of all saved assignments.
+ * @returns {object} The calculated statistics.
+ */
+export function updateDashboard(allAssignments = assignments) {
+  const stats = calculateDashboardStats(allAssignments);
+
+  if (statTotal) {
+    statTotal.textContent = String(stats.total);
+  }
+
+  if (statCompleted) {
+    statCompleted.textContent = String(stats.completed);
+  }
+
+  if (statInProgress) {
+    statInProgress.textContent = String(stats.inProgress);
+  }
+
+  if (statNotStarted) {
+    statNotStarted.textContent = String(stats.notStarted);
+  }
+
+  if (statCompletedRate) {
+    statCompletedRate.textContent = `${stats.completionRate}% completion`;
+  }
+
+  if (dashboardRateBadge) {
+    dashboardRateBadge.textContent = `${stats.completionRate}% Completed`;
+  }
+
+  if (dashboardCompletionRate) {
+    dashboardCompletionRate.textContent = `${stats.completionRate}%`;
+  }
+
+  if (dashboardProgressRatio) {
+    dashboardProgressRatio.textContent = `${stats.completed} of ${stats.total} Completed`;
+  }
+
+  if (dashboardProgressBar) {
+    dashboardProgressBar.setAttribute('aria-valuenow', String(stats.completionRate));
+    dashboardProgressBar.setAttribute('aria-valuetext', `${stats.completionRate}% completed`);
+  }
+
+  if (dashboardProgressFill) {
+    dashboardProgressFill.style.width = `${stats.completionRate}%`;
+  }
+
+  if (dashboardRingFill) {
+    const circumference = 314.16;
+    const offset = circumference - (stats.completionRate / 100) * circumference;
+    dashboardRingFill.style.strokeDashoffset = String(offset);
+  }
+
+  if (dashboardStatusMessage) {
+    if (stats.total === 0) {
+      dashboardStatusMessage.textContent = 'No assignments yet. Add an assignment to start tracking your progress.';
+    } else if (stats.completionRate === 100) {
+      dashboardStatusMessage.textContent = 'All assignments completed! Outstanding work! 🎉';
+    } else if (stats.completionRate >= 75) {
+      dashboardStatusMessage.textContent = 'Almost there! Just a few assignments left.';
+    } else if (stats.completionRate >= 50) {
+      dashboardStatusMessage.textContent = 'Great progress! You are more than halfway through.';
+    } else if (stats.completionRate > 0) {
+      dashboardStatusMessage.textContent = 'Good start! Keep up the momentum.';
+    } else {
+      dashboardStatusMessage.textContent = 'Ready to begin? Choose an assignment to start working on.';
+    }
+  }
+
+  return stats;
+}
+
+/**
  * Renders the filtered and sorted assignment list and updates the UI.
  */
 function render() {
+  // Always update dashboard statistics from all saved assignments
+  updateDashboard(assignments);
+
   const selectedCourse = filterCourseSelect ? filterCourseSelect.value : 'all';
   const selectedStatus = filterStatusSelect ? filterStatusSelect.value : 'all';
   const selectedDeadline = filterDeadlineSelect ? filterDeadlineSelect.value : 'all';
@@ -714,12 +851,12 @@ function render() {
     filterEmpty.className = 'empty-state filter-empty-state';
     filterEmpty.innerHTML = `
       <div class="empty-icon">
-        <i class="fa-solid fa-filter-circle-xmark"></i>
+        <i class="bx bx-filter-alt"></i>
       </div>
       <h3>No matching assignments</h3>
       <p>No assignments match the selected filter criteria. Try adjusting or clearing your filters.</p>
       <button type="button" class="btn btn-secondary inline-reset-btn" id="inline-clear-filters">
-        <i class="fa-solid fa-rotate-left"></i> Reset Filters
+        <i class="bx bx-reset"></i> Reset Filters
       </button>
     `;
 
@@ -812,7 +949,7 @@ function createAssignmentCard(assignment) {
 
     <div class="card-footer">
       <div class="card-due-date ${deadlineInfo.dateClass}">
-        <i class="fa-regular fa-calendar-days"></i>
+        <i class="bx bx-calendar"></i>
         Due: ${formatDate(assignment.dueDate)}
       </div>
 
@@ -820,17 +957,19 @@ function createAssignmentCard(assignment) {
         <button
           class="btn-icon btn-icon-edit"
           title="Edit Assignment"
+          aria-label="Edit Assignment"
           data-id="${assignment.id}"
         >
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="bx bx-edit-alt"></i>
         </button>
 
         <button
           class="btn-icon btn-icon-delete"
           title="Delete Assignment"
+          aria-label="Delete Assignment"
           data-id="${assignment.id}"
         >
-          <i class="fa-solid fa-trash-can"></i>
+          <i class="bx bx-trash"></i>
         </button>
       </div>
     </div>
@@ -946,11 +1085,11 @@ function initDatePicker() {
   datePickerEl.innerHTML = `
     <div class="datepicker-header">
       <button type="button" class="datepicker-nav-btn prev-month-btn" aria-label="Previous month">
-        <i class="fa-solid fa-chevron-left"></i>
+        <i class="bx bx-chevron-left"></i>
       </button>
       <span class="datepicker-title" aria-live="polite"></span>
       <button type="button" class="datepicker-nav-btn next-month-btn" aria-label="Next month">
-        <i class="fa-solid fa-chevron-right"></i>
+        <i class="bx bx-chevron-right"></i>
       </button>
     </div>
     <div class="datepicker-weekdays" aria-hidden="true">
@@ -1145,6 +1284,9 @@ function renderDatePickerCalendar() {
 
   titleEl.textContent = `${MONTH_NAMES[pickerCurrentMonth]} ${pickerCurrentYear}`;
   gridEl.innerHTML = '';
+  gridEl.classList.remove('calendar-changing');
+  void gridEl.offsetWidth;
+  gridEl.classList.add('calendar-changing');
 
   const now = new Date();
   const todayStr = formatToYYYYMMDD(now.getFullYear(), now.getMonth() + 1, now.getDate());
@@ -1297,7 +1439,7 @@ function setupCustomDropdown(select) {
   labelSpan.className = 'custom-dropdown-label';
 
   const icon = document.createElement('i');
-  icon.className = 'fa-solid fa-chevron-down custom-dropdown-icon';
+  icon.className = 'bx bx-chevron-down custom-dropdown-icon';
 
   trigger.appendChild(labelSpan);
   trigger.appendChild(icon);
