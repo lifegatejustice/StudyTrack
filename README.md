@@ -9,3 +9,7 @@ A web application that helps students organize assignments, track deadlines, and
 ### Aaron Edem
  > "Audentes fortuna iuvat." Fortune favors the bold
  - Virgil, The Aeneid
+
+### Benjamin Offor
+  > "Competence without Character only makes a man a competent crook." LEAD
+ - Dr Sam Adeyemi
